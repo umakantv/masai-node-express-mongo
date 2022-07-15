@@ -37,38 +37,41 @@ const univerisitySchema = new mongoose.Schema({
     city: String,
     country: String,
     location: {
-        type: locationSchema,
+        type: {
+            type: String,
+            required: true
+        },
+        coordinates: [Number]
     },
-    students: [{
-        year: Number,
-        number: Number,  // number of students
-    }]
+    students: {
+        type: Array,
+        childSchema: {
+            year: Number,
+            number: Number,  // number of students
+        }
+    }
 })
 
-// PRE middlewares
-univerisitySchema.pre('save', (next) => {
-
-    console.log("Action 1 before saving a document")
-    next(); // Run next middlware in series
+univerisitySchema.pre('validate', () => {
+    console.log("MW 1 before validate")
 })
-
-univerisitySchema.pre('validate', (next) => {
-
-    console.log("Action 1 before validating a document")
-    next(); // Run next middlware in series
-
-    console.log("Action 2 after calling next middleware in the chain")
-})
-
-univerisitySchema.pre('validate', (next) => {
-
-    console.log("MW 2 before validating a document")
-    next(); // Run next middlware in series
-})
-
 univerisitySchema.post('validate', () => {
+    console.log("MW 2 after validate")
+})
 
-    console.log("MW 1 after validating a document")
+univerisitySchema.pre('save', () => {
+    console.log("MW 3 before save")
+})
+
+univerisitySchema.post('save', () => {
+    console.log("MW 4 after save")
+})
+
+univerisitySchema.pre('remove', () => {
+    console.log("MW 5 before remove")
+})
+univerisitySchema.post('remove', () => {
+    console.log("MW 6 after remove")
 })
 
 // We are getting a class returned
@@ -76,9 +79,6 @@ const UniverisityModel = mongoose.model('University', univerisitySchema)  // you
 // Student -> students
 
 async function test() {
-    // const allUniversities = await UniverisityModel.find()
-    // console.log(allUniversities)
-
 
     const newUniversity = new UniverisityModel({
         name: "IIT Kanpur",
@@ -86,19 +86,19 @@ async function test() {
         country: "India",
         ranking: 8,
         location: {
-            type: "Point"
+            type: "Point",
+            coordinates: [12, 3, -54]
         },
         students: [{
             year: 2024,
             number: 2000
         }]
     })
-
-    // let errors = newUniversity.validateSync();
-
     await newUniversity.save() // adds data to database, but validate the data first 
+    await newUniversity.remove();
 
-    console.log("Document saved to DB!")
+    // console.log("Document saved to DB!")
+
 }
 
 test();

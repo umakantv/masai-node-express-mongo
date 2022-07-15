@@ -1,18 +1,10 @@
 const mongoose = require('mongoose');
 
 // make the connection
-
 mongoose.connect("mongodb://localhost:27017/university").then((connectionResponse) => {
     console.log("Database Connection was successful...")
 }).catch(() => {
     console.log("Database Connection was not successful...")
-})
-
-const locationSchema = new mongoose.Schema({
-    type: String,
-    coordinates: [{
-        type: Number
-    }]
 })
 
 // creating an instance of mongoose.Schema
@@ -55,23 +47,23 @@ const univerisitySchema = new mongoose.Schema({
 univerisitySchema.pre('validate', () => {
     console.log("MW 1 before validate")
 })
-univerisitySchema.post('validate', () => {
-    console.log("MW 2 after validate")
+univerisitySchema.post('validate', (res) => {
+    console.log("Document validated", res)
 })
 
 univerisitySchema.pre('save', () => {
     console.log("MW 3 before save")
 })
 
-univerisitySchema.post('save', () => {
-    console.log("MW 4 after save")
+univerisitySchema.post('save', (data) => {
+    console.log("Document saved to database", data)
 })
 
 univerisitySchema.pre('remove', () => {
     console.log("MW 5 before remove")
 })
-univerisitySchema.post('remove', () => {
-    console.log("MW 6 after remove")
+univerisitySchema.post('remove', (res) => {
+    console.log("Document removed", res)
 })
 
 // We are getting a class returned
@@ -96,8 +88,6 @@ async function test() {
     })
     await newUniversity.save() // adds data to database, but validate the data first 
     await newUniversity.remove();
-
-    // console.log("Document saved to DB!")
 
 }
 

@@ -3,14 +3,26 @@ const user = require("./user");
 
 const OrderSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-        required: true
+        name: {
+            type: String,
+            required: true
+        },
+        address: {
+            type: String,
+            required: true
+        },
     },
     product: {
-        type: mongoose.Types.ObjectId,
-        ref: "Product",
-        required: true
+        name: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        },
+        image: String,
+        packInfo: String
     },
     quantity: {
         type: Number,

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDatabase = require('./database');
 const productRouter = require('./routes/product');
+const orderRouter = require('./routes/order');
 
 const app = express()
 
@@ -11,6 +12,7 @@ app.use(cors())         // Prevent error Cross-Origin-Resource-Sharing while usi
 app.use(logger);
 
 app.use(productRouter);
+app.use(orderRouter);
 
 function logger(req, res, next) {
     console.info(new Date(), req.method, req.path);

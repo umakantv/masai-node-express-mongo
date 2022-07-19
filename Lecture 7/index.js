@@ -8,15 +8,24 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())         // Prevent error Cross-Origin-Resource-Sharing while using with react app
+app.use(setReqContext);
 
 app.use(logger);
 
 app.use(userRouter);
 app.use(postRouter);
 
+
 function logger(req, res, next) {
     console.info(new Date(), req.method, req.path);
 
+    next();
+}
+
+function setReqContext(req, res, next) {
+    req.context = {
+        // user will be present for authenticated routes
+    }
     next();
 }
 

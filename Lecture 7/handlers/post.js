@@ -4,8 +4,6 @@ const Comment = require('../database/comment')
 async function getAllPosts(req, res, next) {
     const {skip, limit} = req.query;
 
-    console.log(req.query)
-
     const posts = await Post.find().skip(skip).limit(limit).populate('user');
 
     return res.send({
@@ -39,7 +37,16 @@ async function getSinglePost(req, res, next) {
 }
 
 async function createPost(req, res, next) {
-    let {post} = req.body;
+    let { post } = req.body;
+    const { user } = req.context
+
+    if (!user) {
+        return res.status(401).send({
+            error: "Login to create a post"
+        })
+    }
+
+    post.user = user._id;
 
     post = await Post.create(post);
 
@@ -67,8 +74,23 @@ async function updatePost(req, res, next) {
 
 async function deletePost(req, res, next) {
     let {id} = req.params;
+    const { user } = req.context
 
-    await Post.findByIdAndRemove(id);
+    if (!user) {
+        return res.status(401).send({
+            error: "Login to delete your post"
+        })
+    }
+
+    const post = await Post.findById(id)
+
+    if (post.user.toString() !== user._id.toString()) {
+        return res.status(401).send({
+            error: "This post does not belong to you. You can not delete this post."
+        })
+    }
+
+    await Post.findByIdAndDelete(id);
 
     return res.send({
         message: "Post has been deleted."

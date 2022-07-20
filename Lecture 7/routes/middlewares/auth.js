@@ -16,6 +16,10 @@ async function auth(req, res, next) {
 
             if (user) {
                 req.context.user = user;
+            } else {
+                return res.status(401).send({
+                    error: "You need to login to proceed."
+                })
             }
 
         } catch(ex) {

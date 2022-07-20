@@ -8,6 +8,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         select: false
     },
+    authType: {
+        type: String,
+        required: true,
+        default: "email-password"
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
 }, {
     timestamps: true
 })

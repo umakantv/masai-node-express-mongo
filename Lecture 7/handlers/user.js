@@ -26,6 +26,12 @@ async function register(req, res) {
     })
 }
 
+
+async function registerWithGoogle(req, res) {
+    const { googleToken } = req.body; // email, name, and password
+
+}
+
 async function login(req, res) {
     let { email, password } = req.body
 

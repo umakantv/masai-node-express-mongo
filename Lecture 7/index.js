@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const connectDatabase = require('./database/index');
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
@@ -15,6 +16,7 @@ app.use(logger);
 app.use(userRouter);
 app.use(postRouter);
 
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 function logger(req, res, next) {
     console.info(new Date(), req.method, req.path);

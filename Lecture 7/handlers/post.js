@@ -40,12 +40,6 @@ async function createPost(req, res, next) {
     let { post } = req.body;
     const { user } = req.context
 
-    if (!user) {
-        return res.status(401).send({
-            error: "Login to create a post"
-        })
-    }
-
     post.user = user._id;
 
     post = await Post.create(post);
@@ -61,6 +55,18 @@ async function updatePost(req, res, next) {
 
     let post = await Post.findById(id);
 
+    if (post) {
+        if (!checkPostBelongsToUser(post, user)) {
+            return res.status(401).send({
+                error: "This post does not belong to you. You can't delete it."
+            })
+        }
+    } else {
+        return res.status(404).send({
+            error: "Post with given id does not exist."
+        })
+    }
+
     for (const [key, value] of Object.entries(postData)) {
         post[key] = value;
     }
@@ -72,21 +78,30 @@ async function updatePost(req, res, next) {
     })
 }
 
+function checkPostBelongsToUser(post, user) {
+
+    if (post.user.toString() !== user._id.toString()) {
+        return true
+    }
+
+    return false;
+}
+
 async function deletePost(req, res, next) {
     let {id} = req.params;
     const { user } = req.context
 
-    if (!user) {
-        return res.status(401).send({
-            error: "Login to delete your post"
-        })
-    }
-
     const post = await Post.findById(id)
 
-    if (post.user.toString() !== user._id.toString()) {
-        return res.status(401).send({
-            error: "This post does not belong to you. You can not delete this post."
+    if (post) {
+        if (!checkPostBelongsToUser(post, user)) {
+            return res.status(401).send({
+                error: "This post does not belong to you. You can't delete it."
+            })
+        }
+    } else {
+        return res.status(404).send({
+            error: "Post with given id does not exist."
         })
     }
 

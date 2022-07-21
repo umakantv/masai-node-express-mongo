@@ -2,7 +2,14 @@ const Post = require('../database/post')
 const Comment = require('../database/comment')
 
 async function getAllPosts(req, res, next) {
-    const {skip, limit} = req.query;
+    const {skip, limit, user} = req.query;
+
+    const search = {}
+
+    // dynamically add filters
+    if (user) {
+        search.user = user;
+    }
 
     const posts = await Post.find().skip(skip).limit(limit).populate('user');
 

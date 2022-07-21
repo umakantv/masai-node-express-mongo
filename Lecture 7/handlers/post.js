@@ -35,7 +35,7 @@ async function getSinglePost(req, res, next) {
     
     const comments = await Comment.find({
         "post.id": post._id
-    })
+    }).populate('user')
     post.comments = comments;
 
     return res.send({

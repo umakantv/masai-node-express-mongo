@@ -25,8 +25,12 @@ async function createComment(req, res, next) {
     if (post) {
         comment.post = {
             title: post.title,
-            id: post.id
+            id: post.id.toString()
         }
+    } else {
+        return res.send({
+            error: "Post does not exist."
+        })
     }
 
     comment = await Comment.create(comment);
@@ -67,7 +71,7 @@ async function updateComment(req, res, next) {
 
 function checkCommentBelongsToUser(comment, user) {
 
-    if (comment.user.toString() !== user._id.toString()) {
+    if (comment.user.toString() === user._id.toString()) {
         return true
     }
 

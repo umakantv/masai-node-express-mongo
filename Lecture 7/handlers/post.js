@@ -11,7 +11,9 @@ async function getAllPosts(req, res, next) {
         search.user = user;
     }
 
-    const posts = await Post.find().skip(skip).limit(limit).populate('user');
+    const posts = await Post.find().skip(skip).limit(limit).populate('user').sort({
+        createdAt: -1
+    });
 
     return res.send({
         data: posts
@@ -32,9 +34,7 @@ async function getSinglePost(req, res, next) {
     post = post.toJSON();
     
     const comments = await Comment.find({
-        post: {
-            id: post._id
-        }
+        "post.id": post._id
     })
     post.comments = comments;
 
@@ -59,13 +59,14 @@ async function createPost(req, res, next) {
 async function updatePost(req, res, next) {
     let {id} = req.params;
     let {post: postData} = req.body;
+    const { user } = req.context
 
     let post = await Post.findById(id);
 
     if (post) {
         if (!checkPostBelongsToUser(post, user)) {
             return res.status(401).send({
-                error: "This post does not belong to you. You can't delete it."
+                error: "This post does not belong to you. You can't udpate it."
             })
         }
     } else {
@@ -87,7 +88,7 @@ async function updatePost(req, res, next) {
 
 function checkPostBelongsToUser(post, user) {
 
-    if (post.user.toString() !== user._id.toString()) {
+    if (post.user.toString() === user._id.toString()) {
         return true
     }
 
@@ -113,6 +114,10 @@ async function deletePost(req, res, next) {
     }
 
     await Post.findByIdAndDelete(id);
+
+    await Comment.deleteMany({
+        "post.id": post._id
+    })
 
     return res.send({
         message: "Post has been deleted."

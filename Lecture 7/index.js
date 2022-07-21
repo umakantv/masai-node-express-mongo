@@ -4,6 +4,7 @@ const path = require('path');
 const connectDatabase = require('./database/index');
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
+const commentRouter = require('./routes/comment');
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use(logger);
 
 app.use(userRouter);
 app.use(postRouter);
+app.use(commentRouter);
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 

@@ -23,7 +23,7 @@ async function addComment(body) {
   return data;
 }
 
-export default function CommentForm({ postId }) {
+export default function CommentForm({ postId, fetchPost }) {
   const [content, setContent] = useState("");
   const { user, setShowUserModal } = useContext(AuthContext);
 
@@ -31,12 +31,7 @@ export default function CommentForm({ postId }) {
     addComment({ content, postId })
       .then((data) => {
         console.log(data);
-        const { token } = data.data;
-
-        localStorage.setItem("token", token);
-
-        window.location.reload();
-        // alert("Login successful")
+        fetchPost()
       })
       .catch((err) => {
         alert(err.message);

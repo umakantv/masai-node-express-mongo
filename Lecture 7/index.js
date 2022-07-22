@@ -5,6 +5,7 @@ const connectDatabase = require('./database/index');
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 const commentRouter = require('./routes/comment');
+require('dotenv').config()
 
 const app = express()
 
@@ -33,8 +34,11 @@ function setReqContext(req, res, next) {
     next();
 }
 
+// environment variable
+const PORT = process.env.PORT;
+
 connectDatabase().then(() => {
-    app.listen(3001, () => {
-        console.log("Server running at http://localhost:3001")
+    app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`)
     })
 })

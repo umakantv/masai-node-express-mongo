@@ -12,11 +12,16 @@ export default function App() {
     <div className="App">
 
       <AuthProvider>
-        <PageHeader
-          className="site-page-header"
-          title="PT-WEB-04"
-          subTitle={<UserModal />}
-        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          <h1>PT-WEB-04</h1>
+          <UserModal />
+        </div>
         <BrowserRouter>
           <Routes>
             <Route path="post/:postId" element={<Page />} />

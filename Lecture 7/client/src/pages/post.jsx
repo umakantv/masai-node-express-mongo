@@ -22,11 +22,13 @@ export default function Post() {
   const [post, setPost] = useState()
   const [loading, setLoading] = useState(true);
 
+  const fetchPost = () => getPost(params.postId).then(response => {
+    setPost(response.data)
+    setLoading(false)
+  })
+
   useEffect(() => {
-    getPost(params.postId).then(response => {
-      setPost(response.data)
-      setLoading(false)
-    })
+    fetchPost();
   }, [])
 
   useEffect
@@ -46,7 +48,7 @@ export default function Post() {
           
           <h2>All Comments</h2>
 
-          <CommentForm postId={post._id} />
+          <CommentForm postId={post._id} fetchPost={fetchPost} />
           {
             post.comments.map(comment => {
               return <CommentCard key={comment._id} comment={comment} />

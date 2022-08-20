@@ -81,8 +81,8 @@ async function test() {
 
 
     const newUniversity = new UniverisityModel({
-        name: "IIT Kanpur",
-        city: "Kanpur",
+        name: "IIT Mandi",
+        city: "Mandi",
         country: "India",
         ranking: 8,
         location: {

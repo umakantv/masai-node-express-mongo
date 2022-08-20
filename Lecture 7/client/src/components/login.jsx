@@ -7,7 +7,7 @@ async function login(body) {
   body = JSON.stringify(body);
 
   const response = await fetch(
-    `http://localhost:3001/users/login`, {
+    `http://43.205.98.42:3001/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': "application/json"

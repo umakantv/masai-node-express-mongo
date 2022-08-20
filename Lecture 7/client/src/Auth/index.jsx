@@ -16,7 +16,7 @@ async function getLoggedInUser() {
 
     if (token) {
         const response = await fetch(
-          `http://localhost:3001/users/getLoggedIn`, {
+          `http://43.205.98.42:3001/users/getLoggedIn`, {
             headers: {
               'Content-Type': "application/json",
               'token': token

@@ -6,7 +6,7 @@ import CommentForm from "../components/commentForm";
 
 async function getPost(id) {
   const response = await fetch(
-    `http://localhost:3001/posts/${id}`
+    `http://43.205.98.42:3001/posts/${id}`
   ).catch((err) => {
     console.log(err);
   });

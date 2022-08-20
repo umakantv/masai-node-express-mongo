@@ -9,7 +9,7 @@ async function addComment(body) {
 
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:3001/comments`, {
+  const response = await fetch(`http://43.205.98.42:3001/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

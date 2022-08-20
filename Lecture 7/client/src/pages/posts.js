@@ -3,7 +3,7 @@ import PostCard from "../components/postCard";
 
 async function getPosts() {
   const response = await fetch(
-    "http://localhost:3001/posts/all?skip=0&limit=5"
+    "http://43.205.98.42:3001/posts/all?skip=0&limit=5"
   ).catch((err) => {
     console.log(err);
   });

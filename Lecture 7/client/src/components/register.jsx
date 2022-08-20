@@ -12,7 +12,7 @@ async function register(body) {
 
   console.log(body);
   const response = await fetch(
-    `http://localhost:3001/users`, {
+    `http://43.205.98.42:3001/users`, {
       method: 'POST',
       headers: {
         'Content-Type': "application/json"

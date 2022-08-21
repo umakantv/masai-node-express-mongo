@@ -1,23 +1,10 @@
 const mongoose = require('mongoose');
+const connectDatabase = require('./db');
 const { Schema, model } = mongoose;
 
 // mongoose.Schema  - Class
 // mongoose.model   - function that returns a Class
 // mongoose.connect
-
-async function connectDatabase() {
-    return new Promise((resolve, reject) => {
-        const uri = 'mongodb://127.0.0.1:27017/example-dbs'
-        mongoose.connect(uri, (err) => {
-            if (err) {
-                console.error('Error connecting to Database', err);
-                return reject(err);
-            }
-            console.log('Successfully connected to database.')
-            resolve();
-        })
-    })
-}
 
 // CRUD for todo
 

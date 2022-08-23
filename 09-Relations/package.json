@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@faker-js/faker": "^7.4.0",
+    "mongoose": "^6.5.2"
+  }
+}

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getLoggedInUser, login, register } = require('./controllers/user');
+const { getLoggedInUser, login, register, verify } = require('./controllers/user');
 const connectDatabase = require('./database');
 const app = express();
 
@@ -21,6 +21,7 @@ app.use(logger);
 app.post('/register', register)
 app.post('/login', login)
 app.get('/loggedInUser', getLoggedInUser)
+app.post('/verify', verify)
 
 
 const PORT = 3020;

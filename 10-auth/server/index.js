@@ -2,6 +2,27 @@ const express = require('express');
 const { getLoggedInUser, login, register, verify } = require('./controllers/user');
 const connectDatabase = require('./database');
 const app = express();
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oidc');
+const session = require('express-session');
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: true }
+}));
+
+passport.use(new GoogleStrategy({
+    clientID:       "329075112805-qaq4s71516p5b52vgo6smr2n1skb6178.apps.googleusercontent.com",
+    clientSecret:   "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",
+    callbackURL:    'https://www.example.com/oauth2/redirect/google'
+  },
+  function (issuer, profile, cb) {
+    console.log(profile);
+  })
+);
+
 
 const cors = require('cors')
 
@@ -18,10 +39,15 @@ function logger(req, res, next) {
 
 app.use(logger);
 
+app.get('/login/google', passport.authenticate('google'));
 app.post('/register', register)
 app.post('/login', login)
 app.get('/loggedInUser', getLoggedInUser)
 app.post('/verify', verify)
+
+// sendVerifyEmail
+// sendResetPasswordEmail
+// resetPassword
 
 
 const PORT = 3020;

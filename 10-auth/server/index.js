@@ -14,9 +14,9 @@ app.use(session({
 }));
 
 passport.use(new GoogleStrategy({
-    clientID:       "329075112805-qaq4s71516p5b52vgo6smr2n1skb6178.apps.googleusercontent.com",
-    clientSecret:   "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",
-    callbackURL:    'https://www.example.com/oauth2/redirect/google'
+    clientID:       "your_client_id",
+    clientSecret:   "your_client_secret",
+    callbackURL:    'http://localhost:3020/login/google'
   },
   function (issuer, profile, cb) {
     console.log(profile);

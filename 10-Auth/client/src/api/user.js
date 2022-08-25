@@ -6,7 +6,7 @@ class UserApi extends API {
         return response.data
     }
     async register(data) {
-        const response = await this.axios.post(`${this.baseUrl}/users`, data)
+        const response = await this.axios.post(`${this.baseUrl}/users/register`, data)
         return response.data
     }
     async login(data) {

@@ -8,7 +8,7 @@ class API {
                 token: localStorage.getItem("token")
             }
         })
-        this.baseUrl = "https://localhost:3001"
+        this.baseUrl = "https://localhost:3020"
     }
 }
 

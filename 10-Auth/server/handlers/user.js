@@ -1,6 +1,16 @@
 const User = require('../database/user')
 const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library')
 const { SECRET } = require('../constants');
+const googleOauthClient = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
+
+function generateAuthToken({_id, email, name, image}) {
+    return jwt.sign({
+        _id, email, name, image
+        // we should put an expiry to this token
+        // and check at the time of auth
+    }, SECRET)
+}
 
 async function register(req, res) {
     const { user } = req.body; // email, name, and password
@@ -27,9 +37,41 @@ async function register(req, res) {
 }
 
 
-async function registerWithGoogle(req, res) {
-    const { googleToken } = req.body; // email, name, and password
+async function googleSignin(req, res) {
+    const { token } = req.body; // email, name, picture
 
+    // verify the token
+    const ticket = await googleOauthClient.verifyIdToken({
+        idToken: token,
+        audience: process.env.CLIENT_ID,
+    });
+
+    const { name, email, picture } = ticket.getPayload();
+
+    const user = await User.findOne({ 
+        email
+    });
+
+    if (user) {
+        // after verifying google signin, we take over from here
+        let encryptedToken = generateAuthToken(user);
+
+        return res.send({
+            data: {
+                token: encryptedToken
+            }
+        });
+
+    } else {
+        // first time signin with google
+        await User.create({
+            name,
+            email, 
+            image: picture,
+            authType: 'google-oauth',
+            verified: true,
+        })
+    }
 }
 
 async function login(req, res) {
@@ -48,13 +90,9 @@ async function login(req, res) {
         // match the password
         if (user.password === password) {
             // generate a secret token
-            // encrypt user object {id, email, name}
+            // encrypt user object {_id, email, name, picture}
             
-            let encryptedToken = jwt.sign({
-                id: user._id,
-                email: user.email,
-                name: user.name
-            }, SECRET)
+            let encryptedToken = generateAuthToken(user);
 
             return res.send({
                 data: {
@@ -101,4 +139,5 @@ module.exports = {
     login,
     getLoggedInUser,
     getAllUsers,
+    googleSignin,
 }

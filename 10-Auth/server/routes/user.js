@@ -4,9 +4,11 @@ const auth = require('./middlewares/auth');
 
 const userRouter = express.Router()
 
-userRouter.get('/users', getAllUsers);
-userRouter.post('/users', register);
+userRouter.post('/users/register', register);
 userRouter.post('/users/login', login);
+userRouter.get('/googleSignin', getAllUsers);
 userRouter.get('/users/getLoggedIn', auth, getLoggedInUser);
+
+userRouter.get('/users', getAllUsers);
 
 module.exports = userRouter;

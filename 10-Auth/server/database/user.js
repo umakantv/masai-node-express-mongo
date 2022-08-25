@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
     authType: {
         type: String,
         required: true,
-        default: "email-password"
+        default: "email-password", // google-oauth, github-oauth
+        enum: ["email-password", "google-oauth", "github-oauth"],
     },
     verified: {
         type: Boolean,

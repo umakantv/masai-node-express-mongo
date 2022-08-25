@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -5,7 +6,6 @@ const connectDatabase = require('./database/index');
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
 const commentRouter = require('./routes/comment');
-require('dotenv').config()
 
 const app = express()
 
@@ -14,6 +14,8 @@ app.use(cors())         // Prevent error Cross-Origin-Resource-Sharing while usi
 app.use(setReqContext);
 
 app.use(logger);
+
+app.get('/ping', (req, res) => res.send('pong'))
 
 app.use(userRouter);
 app.use(postRouter);

@@ -1,41 +1,24 @@
 import React, { useContext, useState } from "react";
 import { Card, Input, Button, notification } from "antd";
 import AuthContext from "../Auth";
-
-async function addComment(body) {
-  body = JSON.stringify({
-    comment: body,
-  });
-
-  const token = localStorage.getItem("token");
-
-  const response = await fetch(`http://43.205.98.42:3001/comments`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "token": token
-    },
-    body,
-  });
-
-  const data = await response.json();
-
-  return data;
-}
+import commentApi from "../api/comment";
 
 export default function CommentForm({ postId, fetchPost }) {
   const [content, setContent] = useState("");
   const { user, setShowUserModal } = useContext(AuthContext);
 
   const onAddComment = () => {
-    addComment({ content, postId })
-      .then((data) => {
-        console.log(data);
-        fetchPost()
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    commentApi.createcomment({
+      comment: { content, postId }
+    })
+    .then((data) => {
+      console.log(data);
+      fetchPost()
+      notification.info('Comment added');
+    })
+    .catch((err) => {
+      notification.error(err.message);
+    });
   };
 
   return (

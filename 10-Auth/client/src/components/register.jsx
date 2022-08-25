@@ -1,31 +1,6 @@
 import React, { useState } from "react";
-import { Card, Input, Button } from "antd";
-
-
-async function register(body) {
-
-  body.image = "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/495.jpg"
-
-  body = JSON.stringify({
-    user: body
-  });
-
-  console.log(body);
-  const response = await fetch(
-    `http://43.205.98.42:3001/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': "application/json"
-      },
-      body,
-    }
-  )
-
-  const data = await response.json();
-
-  return data;
-}
-
+import { Space, Input, Button, notification } from "antd";
+import userApi from "../api/user";
 
 export default function Register({ setFlow }) {
   const [name, setName] = useState("Umakant");
@@ -33,18 +8,19 @@ export default function Register({ setFlow }) {
   const [password, setPassword] = useState("password");
 
   const onRegister = () => {
-    register({name, email, password})
+    userApi.register({
+      user: {name, email, password}
+    })
     .then(() => {
-      alert("Registration successful")
+      notification.info("Registration successful")
     })
     .catch(err => {
-      alert(err.message)
+      notification.error(err.message)
     })
   }
 
   return (
-    <Card>
-      <h2>Register </h2>
+    <Space direction="vertical">
       <Input
         placeholder="Name"
         value={name}
@@ -61,10 +37,12 @@ export default function Register({ setFlow }) {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button type="primary" onClick={onRegister}>Register</Button>
-      <Button type="link" onClick={() => setFlow("login")}>
-        Login Instead
-      </Button>
-    </Card>
+      <div>
+        <Button type="primary" onClick={onRegister}>Register</Button>
+        <Button type="link" onClick={() => setFlow("login")}>
+          Login Instead
+        </Button>
+      </div>
+    </Space>
   );
 }

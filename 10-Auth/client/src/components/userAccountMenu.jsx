@@ -6,6 +6,8 @@ import AuthContext from '../Auth';
 export default function AccountMenu() {
     const {user} = useContext(AuthContext)
 
+    console.log(user)
+
     return  <Dropdown 
         overlay={<Menu
                 items={[

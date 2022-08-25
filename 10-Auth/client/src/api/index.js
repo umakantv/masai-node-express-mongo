@@ -8,7 +8,11 @@ class API {
                 token: localStorage.getItem("token")
             }
         })
-        this.baseUrl = "https://localhost:3020"
+        this.baseUrl = "http://localhost:3020"
+    }
+
+    ping() {
+        this.axios.get(this.baseUrl + '/ping')
     }
 }
 

@@ -4,6 +4,7 @@ import AuthContext from "../Auth";
 import Login from "./login";
 import Register from "./register";
 import AccountMenu from "./userAccountMenu";
+import GoogleSignin from "./googleSignin";
 
 const UserModal = () => {
   const {user, showUserModal, setShowUserModal} = useContext(AuthContext)
@@ -27,9 +28,9 @@ const UserModal = () => {
         Login
       </Button>}
       <Modal
-        title="Basic Modal"
+        title={flow === "login" ? 'Login': 'Register'}
         visible={showUserModal}
-        onOk={handleOk}
+        onOk={null}
         onCancel={handleCancel}
       >
         {flow === "login" ? (
@@ -37,6 +38,10 @@ const UserModal = () => {
         ) : (
           <Register setFlow={setFlow} />
         )}
+
+        <div style={{margin: '10px 0'}}>
+          <GoogleSignin />
+        </div>
       </Modal>
     </>
   );

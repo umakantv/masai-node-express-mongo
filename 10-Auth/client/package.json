@@ -8,6 +8,7 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@react-oauth/google": "^0.2.6",
     "antd": "4.21.7",
     "axios": "^0.27.2",
     "react": "18.0.0",

@@ -1,10 +1,13 @@
-const User = require('../database/user')
+const User = require('../database/user');
 const jwt = require('jsonwebtoken');
-const { OAuth2Client } = require('google-auth-library')
-const { SECRET } = require('../constants');
-const googleOauthClient = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
+const { OAuth2Client } = require('google-auth-library');
+const { SECRET, GOOGLE_OAUTH_CLIENT_ID } = require('../constants');
+const bcrypt = require('bcryptjs')
+const googleOauthClient = new OAuth2Client(GOOGLE_OAUTH_CLIENT_ID);
+const { faker } = require('@faker-js/faker')
 
 function generateAuthToken({_id, email, name, image}) {
+
     return jwt.sign({
         _id, email, name, image
         // we should put an expiry to this token
@@ -25,7 +28,14 @@ async function register(req, res) {
         })
     }
 
-    let userDoc = await User.create(user);
+    let password = bcrypt.hashSync(user.password, 10);
+
+    let userDoc = await User.create({
+        email: user.email,
+        name: user.name,
+        password,
+        image: faker.internet.avatar(),
+    });
 
     userDoc = userDoc.toJSON()  // 
 
@@ -43,35 +53,35 @@ async function googleSignin(req, res) {
     // verify the token
     const ticket = await googleOauthClient.verifyIdToken({
         idToken: token,
-        audience: process.env.CLIENT_ID,
+        audience: GOOGLE_OAUTH_CLIENT_ID,
     });
 
     const { name, email, picture } = ticket.getPayload();
 
-    const user = await User.findOne({ 
+    let user = await User.findOne({ 
         email
     });
 
-    if (user) {
-        // after verifying google signin, we take over from here
-        let encryptedToken = generateAuthToken(user);
-
-        return res.send({
-            data: {
-                token: encryptedToken
-            }
-        });
-
-    } else {
+    if (!user) {
         // first time signin with google
-        await User.create({
+        user = await User.create({
             name,
             email, 
             image: picture,
             authType: 'google-oauth',
             verified: true,
         })
+
     }
+
+    // after verifying google signin, we take over from here
+    let encryptedToken = generateAuthToken(user);
+
+    return res.send({
+        data: {
+            token: encryptedToken
+        }
+    });
 }
 
 async function login(req, res) {
@@ -88,7 +98,7 @@ async function login(req, res) {
 
     if (user) {
         // match the password
-        if (user.password === password) {
+        if (bcrypt.compareSync(password, user.password)) {
             // generate a secret token
             // encrypt user object {_id, email, name, picture}
             

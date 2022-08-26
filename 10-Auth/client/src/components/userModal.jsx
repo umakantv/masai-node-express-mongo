@@ -5,6 +5,7 @@ import Login from "./login";
 import Register from "./register";
 import AccountMenu from "./userAccountMenu";
 import GoogleSignin from "./googleSignin";
+import GithubSignin from "./githubSignin";
 
 const UserModal = () => {
   const {user, showUserModal, setShowUserModal} = useContext(AuthContext)
@@ -41,6 +42,9 @@ const UserModal = () => {
 
         <div style={{margin: '10px 0'}}>
           <GoogleSignin />
+        </div>
+        <div>
+          <GithubSignin />
         </div>
       </Modal>
     </>

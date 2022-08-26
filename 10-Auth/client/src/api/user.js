@@ -17,6 +17,10 @@ class UserApi extends API {
         const response = await this.axios.post(`${this.baseUrl}/users/googleSignin`, data)
         return response.data
     }
+    async githubSignin(data) {
+        const response = await this.axios.post(`${this.baseUrl}/users/githubSignin`, data)
+        return response.data
+    }
 }
 
 const userApi = new UserApi()

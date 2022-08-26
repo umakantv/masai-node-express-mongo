@@ -3,10 +3,11 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
+    githubUsername: String,
     image: String,
-    password: {
+    password: { // will be empty for oauth users
         type: String,
-        select: false
+        select: false // by default, this field will be skipped while fetching from db 
     },
     authType: {
         type: String,

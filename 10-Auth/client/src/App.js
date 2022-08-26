@@ -12,6 +12,7 @@ export default function App() {
     <div className="App">
       <GoogleOAuthProvider clientId="293042471582-l538fhrii5v1ekg1el3pgk3ur0h6ul87.apps.googleusercontent.com">
 
+      <BrowserRouter>
         <AuthProvider>
           <div
             style={{
@@ -23,13 +24,12 @@ export default function App() {
             <h1>Blogster</h1>
             <UserModal />
           </div>
-          <BrowserRouter>
-            <Routes>
-              <Route path="post/:postId" element={<Page />} />
-              <Route path="/" element={<Pages />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path="post/:postId" element={<Page />} />
+            <Route path="/" element={<Pages />} />
+          </Routes>
         </AuthProvider>
+      </BrowserRouter>
       </GoogleOAuthProvider>
     </div>
   );

@@ -1,8 +1,10 @@
 const User = require('../database/user');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
-const { SECRET, GOOGLE_OAUTH_CLIENT_ID } = require('../constants');
+const { SECRET, GOOGLE_OAUTH_CLIENT_ID, GITHUB_OAUTH_CLIENT_ID,
+    GITHUB_OAUTH_CLIENT_SECRET } = require('../constants');
 const bcrypt = require('bcryptjs')
+const axios = require('axios').default;
 const googleOauthClient = new OAuth2Client(GOOGLE_OAUTH_CLIENT_ID);
 const { faker } = require('@faker-js/faker')
 
@@ -47,14 +49,26 @@ async function register(req, res) {
 }
 
 
+// this is like loging in with with google -
+// google will have user account
+// google will create this token and provide us on frontend
+// we have to verify it with google on server 
+// before we create any user based on this token
 async function googleSignin(req, res) {
     const { token } = req.body; // email, name, picture
 
-    // verify the token
-    const ticket = await googleOauthClient.verifyIdToken({
-        idToken: token,
-        audience: GOOGLE_OAUTH_CLIENT_ID,
-    });
+    let ticket;
+    try {
+        // verify the token
+        ticket = await googleOauthClient.verifyIdToken({
+            idToken: token,
+            audience: GOOGLE_OAUTH_CLIENT_ID,
+        });
+    } catch (ex) {
+        return res.status(400).send({
+            message: 'Google Signin Failed'
+        })
+    }
 
     const { name, email, picture } = ticket.getPayload();
 
@@ -71,7 +85,6 @@ async function googleSignin(req, res) {
             authType: 'google-oauth',
             verified: true,
         })
-
     }
 
     // after verifying google signin, we take over from here
@@ -82,6 +95,76 @@ async function googleSignin(req, res) {
             token: encryptedToken
         }
     });
+}
+
+async function githubSignin(req, res) {
+    const {code} = req.body;
+
+    // we first have to use this code to get access token
+    let url = `https://github.com/login/oauth/access_token?client_id=${GITHUB_OAUTH_CLIENT_ID}&client_secret=${GITHUB_OAUTH_CLIENT_SECRET}&code=${code}`
+    
+    axios.post(url)
+    .then(response => {
+
+        const data = response.data;
+
+        const access_token = data.split('&')[0].split('=')[1];
+    
+        // then we use access token to get user details
+        axios.get('https://api.github.com/user', {
+            headers: { 
+                Authorization: `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(async (user_response) => {
+            const userData = user_response.data;
+        
+            const {name, login: githubUsername, avatar_url: image} = userData;
+        
+            // If first time github signin
+        
+            let user = await User.findOne({ 
+                githubUsername
+            });
+        
+            // then we store in out db
+            if (!user) {
+                // first time signin with google
+                user = await User.create({
+                    name,
+                    githubUsername,
+                    image,
+                    authType: 'github-oauth',
+                    verified: true,
+                })
+            }
+        
+            // after verifying github signin, we take over from here
+            let encryptedToken = generateAuthToken(user);
+        
+            return res.send({
+                data: {
+                    token: encryptedToken
+                }
+            });
+        }).catch(err => {
+            console.error('Error in github user details request', err)
+    
+            return res.status(400).send({
+                message: 'Github Signin Failed'
+            })
+        });
+    
+    })
+    .catch(err => {
+        console.error('Error in github access token request', err)
+
+        return res.status(400).send({
+            message: 'Github Signin Failed'
+        })
+    });
+
 }
 
 async function login(req, res) {
@@ -150,4 +233,5 @@ module.exports = {
     getLoggedInUser,
     getAllUsers,
     googleSignin,
+    githubSignin,
 }

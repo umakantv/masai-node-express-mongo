@@ -12,7 +12,7 @@ async function auth(req, res, next) {
             decoded_user = jwt.verify(token, SECRET);
 
         } catch(ex) {
-            console.log(ex)
+            console.log('Invalid token', ex.message)
             return res.status(400).send({
                 error: "Invalid Token provided"
             })

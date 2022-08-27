@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./styles.css";
 import "antd/dist/antd.css";
-import Page from "./pages/post";
-import Pages from "./pages/posts";
+import Post from "./pages/post";
+import Posts from "./pages/posts";
 import UserModal from "./components/userModal";
 import { AuthProvider } from "./Auth";
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -25,8 +25,8 @@ export default function App() {
             <UserModal />
           </div>
           <Routes>
-            <Route path="post/:postId" element={<Page />} />
-            <Route path="/" element={<Pages />} />
+            <Route path="post/:postId" element={<Post />} />
+            <Route path="/" element={<Posts />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

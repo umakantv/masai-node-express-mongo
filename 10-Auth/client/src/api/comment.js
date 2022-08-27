@@ -6,7 +6,7 @@ class CommentApi extends API {
         return response.data
     }
     async createcomment(data) {
-        const response = await this.axios.comment(`${this.baseUrl}/comments`, data)
+        const response = await this.axios.post(`${this.baseUrl}/comments`, data)
         return response.data
     }
     async deletecomment(id) {

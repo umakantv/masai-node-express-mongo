@@ -1,20 +1,9 @@
 import { Avatar, Skeleton } from "antd";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import postApi from "../api/post";
 import CommentCard from "../components/comment";
 import CommentForm from "../components/commentForm";
-
-async function getPost(id) {
-  const response = await fetch(
-    `http://43.205.98.42:3001/posts/${id}`
-  ).catch((err) => {
-    console.log(err);
-  });
-
-  const data = await response.json();
-
-  return data;
-}
 
 export default function Post() {
   const params = useParams();
@@ -22,8 +11,11 @@ export default function Post() {
   const [post, setPost] = useState()
   const [loading, setLoading] = useState(true);
 
-  const fetchPost = () => getPost(params.postId).then(response => {
-    setPost(response.data)
+  const fetchPost = () => postApi.getPost(params.postId).then(response => {
+    const post = response.data;
+
+    // post.comments = post.comments.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    setPost(post)
     setLoading(false)
   })
 

@@ -9,7 +9,7 @@ export default function CommentForm({ postId, fetchPost }) {
 
   const onAddComment = () => {
     commentApi.createcomment({
-      comment: { content, postId }
+      comment: { content, post: postId }
     })
     .then((data) => {
       console.log(data);
@@ -17,12 +17,13 @@ export default function CommentForm({ postId, fetchPost }) {
       notification.info('Comment added');
     })
     .catch((err) => {
+      console.error(err)
       notification.error(err.message);
     });
   };
 
   return (
-    <Card>
+    <div>
       <h2>Add Comment </h2>
       {user ? (
         <div>
@@ -31,7 +32,7 @@ export default function CommentForm({ postId, fetchPost }) {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
-          <Button t ype="primary" onClick={onAddComment}>
+          <Button t ype="primary" onClick={onAddComment} style={{marginTop: 10}}>
             Add Comment
           </Button>
         </div>
@@ -40,6 +41,6 @@ export default function CommentForm({ postId, fetchPost }) {
           Login First
         </Button>
       )}
-    </Card>
+    </div>
   );
 }

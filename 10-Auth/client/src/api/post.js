@@ -1,8 +1,8 @@
 import API from ".";
 
 class PostApi extends API {
-    async getAll() {
-        const response = await this.axios.get(`${this.baseUrl}/posts/getAll`)
+    async getAll(skip = 0, limit = 5) {
+        const response = await this.axios.get(`${this.baseUrl}/posts/all?skip=${skip}&limit=${limit}`)
         return response.data
     }
     async getPost(id) {

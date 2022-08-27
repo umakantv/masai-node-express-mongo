@@ -28,7 +28,7 @@ async function createComment(req, res, next) {
             id: post.id.toString()
         }
     } else {
-        return res.send({
+        return res.status(400).send({
             error: "Post does not exist."
         })
     }

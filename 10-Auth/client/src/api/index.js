@@ -8,7 +8,7 @@ class API {
                 token: localStorage.getItem("token")
             }
         })
-        this.baseUrl = "http://localhost:3020"
+        this.baseUrl = "http://13.233.109.184:3020"
     }
 
     ping() {

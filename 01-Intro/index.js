@@ -1,44 +1,45 @@
 
-// Modules in Nodejs
+console.log('Hello World')
 
-// User generated modules
-const {
-    fib
-} = require('./fibonacci') // user generated module
-const makeRecipe = require('./recipes');
+// import randomInt from './random'
 
-// Core modules
-const fs = require('fs'); // core module
+// 1. User defined modules
+// const randomModule = require('./random')
+// const {randomInt} = require('./random')
 
-// Third party modules
-const moment = require('moment'); // it gives you lot of useful methods
-const vcg = require('voucher-code-generator')
-const axios = require('axios');
+import axios from 'axios'
+import {randomInt } from './random.js'
 
-console.log(makeRecipe('coffee', 'cappuccino'));
+// 2. Core Modules
+// const fs = require('fs');
+import fs from 'fs'
 
-// console.log(fib(3));
-
-
+// 3. Third party modules
+// const moment = require('moment');
+import moment from 'moment'
+// const axios = require('axios')
 
 
-// const fs = require('fs'); // core module
+const date = moment().add(4, 'weeks').format('DD MMM YYYY');
 
-const data = fs.readFileSync('index.html')
-// console.log(data.toString())
+console.log(date);
 
 
-console.log(moment().add(15, 'day'))
+export async function getPosts() {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then(res => {
+        console.log(res.data)
+    })
+}
 
-const vouchers = vcg.generate({
-    charset: '1234567890',
-    length: 6,
-    count: 5
+
+
+const content = fs.readFileSync('./random.js', {
+    encoding: 'utf-8'
 })
 
-console.log(vouchers)
+// console.log(content)
 
 
-// axios.get('https://jsonplaceholder.typicode.com/posts')
-// .then(response => console.log(response.data))
-
+console.log(randomInt(100, 300))
+// console.log(randomModule.greeting('PT WEB 6'))

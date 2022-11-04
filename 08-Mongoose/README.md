@@ -1,2 +1,0 @@
-# Mongoose Introduction
-

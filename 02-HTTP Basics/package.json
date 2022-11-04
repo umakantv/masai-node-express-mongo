@@ -1,0 +1,16 @@
+{
+  "name": "02-http-basics",
+  "version": "1.0.0",
+  "description": "HTTP is a Protocol for communicating with a web server. Client and Server both understand this protocal.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "https://github.com/umakantv",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

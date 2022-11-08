@@ -1,0 +1,16 @@
+{
+  "name": "04-middlewares_ecosystem",
+  "version": "1.0.0",
+  "description": "How is express working under the hood? How can we use that to our best advantage?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  }
+}

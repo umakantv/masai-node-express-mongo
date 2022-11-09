@@ -2,6 +2,7 @@
 const express = require('express')
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
+const morgam = require('morgan')
 
 const employeeRouter = require('./employeeRoutes');
 
@@ -16,7 +17,8 @@ function logger(req, res, next) {
 }
 
 app.use(express.json());
-app.use(logger);
+// app.use(logger);
+app.use(morgam('tiny'))
 
 let count = 0;
 

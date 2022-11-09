@@ -4,6 +4,7 @@
 How is express working under the hood?
 How can we use that to our best advantage?
 
+Board: https://excalidraw.com/#json=IOCnwVWovYFasbDmcUgsx,Y-poD1Mi6BJYaWLHUYBIcw
 
 * For express there is a chain of handlers, and the order in which these handlers are defined matters greatly.
 * For each request, express checks each handler one by one:

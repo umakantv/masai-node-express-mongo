@@ -106,10 +106,12 @@ db.users.updateMany(filterOptions, updateOptions)
 // updatedOptions will be updated in all found documents
 
 db.users.updateMany({ 
-    name: 'John Doe'
+    name: 'John Doe',
+    age: 23
 }, { 
     $set: {
-        name: 'Jane Doe'
+        name: 'Jane Doe',
+        age: 24
     }
 })
 ```
@@ -160,7 +162,7 @@ db.users.find({
 
 ### Comparison Operators
 
-1. $eq - Equality, $neq Non-equal
+1. $eq - Equality, $ne Non-equal
 ```js
 
 db.users.find({ name: { $eq: 'umakant'} })
@@ -182,7 +184,7 @@ db.users.find({ age: {  $gte: 24, $lte: 30 } } ) // [24, 30]
 
 db.users.find({ 
     age: {  $gte: 24, $lte: 30 } ,
-    full_name: {  $gte: 'R', $lte: 'T' }
+    full_name: {  $gte: 'M', $lte: 'T' }
 } )
 ```
 
@@ -192,7 +194,7 @@ db.users.find({
 ```js
 
 // if for any document value of full_name is present in the search array [ 'Ilyssa Pawelek', 'Niccolo Phethean', 'Austin Abramson' ]
-db.users.find({ full_name: { $in: [ 'Ilyssa Pawelek', 'Niccolo Phethean', 'Austin Abramson' ] }  })
+db.users.find({ full_name: { $in: [ 'Ilyssa Pawelek', 'Austin Abramson', 'Niccolo Phethean' ] }  })
 
 // if for any document value of full_name is not present in the search array [ 'Ilyssa Pawelek', 'Niccolo Phethean', 'Austin Abramson' ]
 // full_name value must be present in the document and it must not be in the search array
@@ -212,8 +214,8 @@ db.users.find({
         // condition 1
         { 
             full_name: { 
-                $in: [ 'Ilyssa Pawelek', 'Niccolo Phethean', 'Austin Abramson' ] 
-            }
+                $in: [ 'Ilyssa Pawelek', 'Niccolo Phethean', 'Austin Abramson' ],
+            },
         },
         // condition 2
         {
@@ -467,6 +469,7 @@ These operators will work only on array elements
 
 1. $all
 
+All elements in the array should be present in the compared array
 ```js
 
 db.blogs.find({
@@ -485,9 +488,7 @@ Matches the documents where the array size matches the provided value
 ```js
 db.blogs.find({
     likedUserIds: {
-        $size: {  // true
-            $gte: 3
-        }
+        $size: 4 // true
     }
 })
 
@@ -495,13 +496,12 @@ db.blogs.find({
 
 3. $elemMatch
 
-All elements in the array should match all conditions
-
+If there is at least one element that matches the given conditions
 ```js
 
 db.blogs.find({
     likedUserIds: {
-        $all: {  // false
+        $elemMatch: {  // false
             $gte: 12,
             $lte: 32
         }

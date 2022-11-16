@@ -138,6 +138,31 @@ app.get('/employees', (req, res) => {
 })
 
 
+async function wait(seconds) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, seconds * 1000);
+    })
+}
+
+/**
+ * Question:
+ * 
+ * If we make two requests as follows exactly one after another without any delay at T0
+ * http://localhost:3050/wait?seconds=10
+ * http://localhost:3050/wait?seconds=5
+ * 
+ * 1. The first request ends at T0+10 seconds, Second at T0+15 seconds
+ * 2. The first request ends at T0+10 seconds, Second at T0+5 seconds
+ * 
+ */
+app.get('/wait', async (req, res) => {
+    await wait(req.query.seconds);
+    res.send('Done')
+})
+
+
 app.listen(3050, () => {
     console.log('http://localhost:3050');
 })

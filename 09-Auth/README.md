@@ -1,6 +1,7 @@
 
 # Authentication
 
+Board: https://excalidraw.com/#json=Hu4ItRmmeQhH6eDpgSyx4,zZJ0Vc42PTPXmmPAgjMBCA
 * Why auth is required? How it works.
 
 * Using Server side cookies

@@ -1,0 +1,20 @@
+{
+  "name": "09-auth",
+  "version": "1.0.0",
+  "description": "Whenever we get a request, we limit and restrict the response based on the user who is making that request.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.2"
+  },
+  "type": "module"
+}

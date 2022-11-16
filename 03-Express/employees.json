@@ -1,0 +1,39 @@
+{
+  "employees": [
+    {
+      "name": "Umakant Vashishta",
+      "age": 30,
+      "role": "Software Developer",
+      "email": "abc@company.com",
+      "id": 1
+    },
+    {
+      "name": "Varun Goyal",
+      "age": 30,
+      "role": "Criminal Lawyer",
+      "email": "abc@company.com",
+      "id": 2
+    },
+    {
+      "name": "Vikrant Dhawan",
+      "age": 30,
+      "role": "Criminal Lawyer",
+      "email": "abc@company.com",
+      "id": 3
+    },
+    {
+      "name": "Shivam Yadav",
+      "age": 30,
+      "role": "Criminal Lawyer",
+      "email": "abc@company.com",
+      "id": 4
+    },
+    {
+      "name": "John Doe",
+      "age": 30,
+      "role": "Criminal Lawyer",
+      "email": "abc@company.com",
+      "id": 5
+    }
+  ]
+}

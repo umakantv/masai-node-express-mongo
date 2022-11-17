@@ -1,8 +1,18 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 const userModel = require("../database/user.model");
 
 const JWT_SECRET = process.env.JWT_SECRET;
+
+function generateToken(user) {
+    return jwt.sign({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        image: user.image
+    }, JWT_SECRET);
+}
 
 async function fetchUser(req, res) {
 
@@ -43,12 +53,7 @@ async function login(req, res) {
 
         if (match) {
             // produce a JWT token
-            let token = jwt.sign({
-                _id: existingUser._id,
-                name: existingUser.name,
-                email: existingUser.email,
-                image: existingUser.image
-            }, JWT_SECRET);
+            let token = generateToken(existingUser);
 
             return res.status(200).send({
                 status: 'success',
@@ -73,39 +78,17 @@ async function login(req, res) {
 
 async function getLoggedInUser(req, res) {
 
-    try {
+    const {user} = req;
 
-        console.log(req.headers);
-        let token = req.headers.authorization || '';
-
-        token = token.split(' ')[1];
-
-        if (token) {
-
-            const result = jwt.verify(token, JWT_SECRET);
-
-            let user = await userModel.findById(result._id);
-
-            user = user.toJSON();
-
-            delete user.password;
-
-            return res.send({
-                status: 'success',
-                data: user
-            })
-        } else {
-
-            return res.status(400).send({
-                status: 'error',
-                message: 'User not logged in'
-            })
-        }
-    
-    } catch(err) {
-        return res.status(500).send({
+    if (user) {
+        return res.status(200).send({
+            status: 'success',
+            data: user
+        })
+    } else {
+        return res.status(400).send({
             status: 'error',
-            message: 'Something went wrong'
+            message: 'User not logged in'
         })
     }
 }
@@ -141,9 +124,71 @@ async function register(req, res) {
     }
 }
 
+async function githubSignin(req, res) {
+
+    try {
+        const {code} = req.query
+    
+        // 1 Exchange code with access token
+    
+        let client_id = process.env.GITHUB_OAUTH_CLIENT_ID;
+        let client_secret = process.env.GITHUB_OAUTH_CLIENT_SECRET;
+        let url = `https://github.com/login/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
+    
+        let response = await axios.post(url);
+    
+        const result = new URLSearchParams(response.data);
+    
+        const accessToken = result.get('access_token');
+    
+        let url2 = 'https://api.github.com/user';
+    
+        response = await axios.get(url2, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        const userDetails = response.data;
+
+        let existingUser = await userModel.findOne({
+            authType: 'github',
+            username: userDetails.login
+        });
+
+        if (!existingUser) {
+            existingUser = await userModel.create({
+                authType: 'github',
+                name: userDetails.name,
+                username: userDetails.login,
+                image: userDetails.avatar_url,
+                email: userDetails.email,
+            })
+        }
+        
+        let token = generateToken(existingUser);
+
+        return res.status(200).send({
+            status: 'success',
+            data: {
+                token
+            }
+        })
+
+    } catch(err) {
+
+        console.error(err)
+        return res.status(400).send({
+            status: 'success',
+            message: 'Something went wrong'
+        })
+    }
+}
+
 module.exports = {
     fetchUser,
     register,
     login,
-    getLoggedInUser
+    getLoggedInUser,
+    githubSignin
 }

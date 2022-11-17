@@ -19,11 +19,19 @@ async function getBlogsByUserId(req, res) {
 async function createBlogPost(req, res) {
 
     const blog = req.body;
+    const {user} = req;
 
-    // check if the user already created a blog post
+    if (!user) {
+        return res.status(400).send({
+            status: 'error',
+            message: 'User not logged in'
+        })
+    }
 
-    if (!blog.author) {
-        throw new Error('No author details provided')
+    blog.author = {
+        _id: user._id,
+        name: user.name,
+        image: user.image,
     }
 
     const blogData = await blogModel.create(blog);
@@ -32,7 +40,6 @@ async function createBlogPost(req, res) {
         status: 'success',
         data: blogData
     })
-
 }
 
 module.exports = {

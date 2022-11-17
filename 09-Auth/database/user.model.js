@@ -13,11 +13,16 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: {
         type: String,
-        required: true,
+        // required: true,
+    },
+    authType: {
+        type: String,
+        enum: ['github', 'google', 'facebook', 'email-password'],
+        defaultValue: 'email-password'
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
         minLength: 8
     },
 })

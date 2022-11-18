@@ -25,7 +25,12 @@ app.get('/visits', (req, res) => {
     res.send(`Visits: ${req.session.visit}`)
 })
 
-const port = 3001;
+app.get('/', (req, res) => {
+    res.send('Hello World')
+})
+
+const port = 3050;
+
 app.listen(port, () => {
     console.log(`Server is listening on http://localhost:${port}`)
 });

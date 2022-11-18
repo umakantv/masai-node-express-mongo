@@ -11,9 +11,9 @@ const blogSchema = new mongoose.Schema({
         minLength: 10
     },
     author: { // user has many blogs
-        authorId: String,
-        authorName: String,
-        authorImage: String,
+        _id: String,
+        name: String,
+        iamge: String,
     }
 }, {
     timestamps: true

@@ -1,10 +1,13 @@
 
 const express = require('express');
-const { getBlogsByUserId, createBlogPost } = require('../controllers/blog.controllers');
+const { getBlogsByUserId, createBlogPost, getBlogsPaginated, getBlogById } = require('../controllers/blog.controllers');
 
 const blogRouter = express.Router()
 
-blogRouter.get('/user/:userId', getBlogsByUserId)
 blogRouter.post('/', createBlogPost)
+
+blogRouter.get('/user/:userId', getBlogsByUserId)
+blogRouter.get('/:id', getBlogById)
+blogRouter.get('/', getBlogsPaginated)
 
 module.exports = blogRouter;

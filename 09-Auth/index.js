@@ -3,13 +3,15 @@ require('dotenv').config({
 })
 
 const express = require('express');
+const cors = require('cors');
 const { connectDatabase } = require('./database/connectDB');
 const auth = require('./middlewares/auth');
 const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
+const commentRouter = require('./routes/comment.routes');
 
 const app = express();
-
+app.use(cors())
 function logger(req, res, next) {
 
     console.log(new Date(), req.method, req.url);  // Log 1
@@ -27,9 +29,8 @@ app.use(auth);
 // POST /user
 app.use('/user', userRouter);
 
-// http://localhost:3050/github-signin?code=7ef3860e62ec35384a6c
-
 app.use('/blog', blogRouter);
+app.use('/comment', commentRouter);
 
 app.get('/*', express.static('public'));
 

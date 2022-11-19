@@ -14,6 +14,35 @@ function generateToken(user) {
     }, JWT_SECRET);
 }
 
+async function fetchUsersPaginated(req, res) {
+
+    const {
+        pageSize = 10, 
+        page = 1,
+        sortBy = 'createdAt',
+        sortOrder = 'desc' 
+    } = req.query;
+
+    const totalUser = await userModel.find().count();
+
+    const users = await userModel.find().select('-password')
+    .sort({
+        [sortBy]: sortOrder === 'asc' ? 1 : -1
+    })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+    return res.send({
+        status: 'success',
+        data: {
+            totalUser,
+            users,
+            page,
+            pageSize
+        }
+    })
+}
+
 async function fetchUser(req, res) {
 
     const {id} = req.params;
@@ -141,6 +170,8 @@ async function githubSignin(req, res) {
     
         const accessToken = result.get('access_token');
     
+        // 2 Fetch the user details with access token
+
         let url2 = 'https://api.github.com/user';
     
         response = await axios.get(url2, {
@@ -160,7 +191,7 @@ async function githubSignin(req, res) {
             existingUser = await userModel.create({
                 authType: 'github',
                 name: userDetails.name,
-                username: userDetails.login,
+                githubUsername: userDetails.login,
                 image: userDetails.avatar_url,
                 email: userDetails.email,
             })
@@ -177,7 +208,7 @@ async function githubSignin(req, res) {
 
     } catch(err) {
 
-        console.error(err)
+        console.error(err.response.data)
         return res.status(400).send({
             status: 'success',
             message: 'Something went wrong'
@@ -190,5 +221,6 @@ module.exports = {
     register,
     login,
     getLoggedInUser,
-    githubSignin
+    githubSignin,
+    fetchUsersPaginated,
 }

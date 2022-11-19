@@ -3,26 +3,35 @@ const mongoose = require("mongoose");
 // Step 2. Define the Schema
 const userSchema = new mongoose.Schema({
     name: String,
-    // gender: String, // shorthand definition
     gender: {
         type: String,
-        // required: true,
         enum: ['Male', 'Female', 'Other']
     },
     image: String,
     username: String,
+    githubUsername: String,
     email: {
         type: String,
-        // required: true,
     },
     authType: {
         type: String,
         enum: ['github', 'google', 'facebook', 'email-password'],
-        defaultValue: 'email-password'
+        default: 'email-password'
+    },
+    blogsCount: {
+        type: Number,
+        default: 0,
+    },
+    followingCount: {
+        type: Number,
+        default: 0,
+    },
+    followerCount: {
+        type: Number,
+        default: 0,
     },
     password: {
         type: String,
-        // required: true,
         minLength: 8
     },
 })

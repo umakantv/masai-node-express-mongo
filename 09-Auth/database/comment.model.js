@@ -6,12 +6,12 @@ const commentSchema = new mongoose.Schema({
         required: true,
         minLength: 10
     },
-    author: { // user has many comments
+    author: {
         _id: String,
         name: String,
         image: String,
     },
-    blogId: String
+    blogId: String,
 }, {
     timestamps: true
 })

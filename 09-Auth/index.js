@@ -1,36 +1,33 @@
 require('dotenv').config({
     path: './.env'
 })
-
+const morgan = require('morgan');
 const express = require('express');
 const cors = require('cors');
 const { connectDatabase } = require('./database/connectDB');
-const auth = require('./middlewares/auth');
 const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
 const commentRouter = require('./routes/comment.routes');
 
+const auth = require('./middlewares/auth');
+const logger = require('./middlewares/logger');
+const followerRouter = require('./routes/following.routes');
+
 const app = express();
+
+// Standard Middlewares
 app.use(cors())
-function logger(req, res, next) {
+app.use(express.json())
+app.use(morgan('tiny'))
+app.use(logger)
 
-    console.log(new Date(), req.method, req.url);  // Log 1
+// Custom Middlewares
+app.use(auth)
 
-    // next is a function
-    // next gives control to the next handler in pipeline
-    next();
-}
-
-app.use(express.json());
-app.use(logger);
-app.use(auth);
-
-// GET /user/asdf43423
-// POST /user
 app.use('/user', userRouter);
-
 app.use('/blog', blogRouter);
 app.use('/comment', commentRouter);
+app.use('/follow', followerRouter);
 
 app.get('/*', express.static('public'));
 

@@ -16,11 +16,20 @@ const userSchema = new mongoose.Schema({
     authType: {
         type: String,
         enum: ['github', 'google', 'facebook', 'email-password'],
-        defaultValue: 'email-password'
+        default: 'email-password'
     },
-    blogsCount: Number,
-    followingCount: Number,
-    followerCount: Number,
+    blogsCount: {
+        type: Number,
+        default: 0,
+    },
+    followingCount: {
+        type: Number,
+        default: 0,
+    },
+    followerCount: {
+        type: Number,
+        default: 0,
+    },
     password: {
         type: String,
         minLength: 8

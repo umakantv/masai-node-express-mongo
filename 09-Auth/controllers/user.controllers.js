@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const userModel = require("../database/user.model");
+const GithubService = require('../services/github');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -157,30 +158,9 @@ async function githubSignin(req, res) {
 
     try {
         const {code} = req.query
-    
-        // 1 Exchange code with access token
-    
-        let client_id = process.env.GITHUB_OAUTH_CLIENT_ID;
-        let client_secret = process.env.GITHUB_OAUTH_CLIENT_SECRET;
-        let url = `https://github.com/login/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}&code=${code}`;
-    
-        let response = await axios.post(url);
-    
-        const result = new URLSearchParams(response.data);
-    
-        const accessToken = result.get('access_token');
-    
-        // 2 Fetch the user details with access token
 
-        let url2 = 'https://api.github.com/user';
-    
-        response = await axios.get(url2, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
-
-        const userDetails = response.data;
+        let githubService = new GithubService();
+        const userDetails = await githubService.getUser(code);
 
         let existingUser = await userModel.findOne({
             authType: 'github',

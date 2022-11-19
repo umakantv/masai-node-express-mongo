@@ -14,6 +14,35 @@ function generateToken(user) {
     }, JWT_SECRET);
 }
 
+async function fetchUsersPaginated(req, res) {
+
+    const {
+        pageSize = 10, 
+        page = 1,
+        sortBy = 'createdAt',
+        sortOrder = 'desc' 
+    } = req.query;
+
+    const totalUser = await userModel.find().count();
+
+    const users = await userModel.find().select('-password')
+    .sort({
+        [sortBy]: sortOrder === 'asc' ? 1 : -1
+    })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+    return res.send({
+        status: 'success',
+        data: {
+            totalUser,
+            users,
+            page,
+            pageSize
+        }
+    })
+}
+
 async function fetchUser(req, res) {
 
     const {id} = req.params;
@@ -192,5 +221,6 @@ module.exports = {
     register,
     login,
     getLoggedInUser,
-    githubSignin
+    githubSignin,
+    fetchUsersPaginated,
 }

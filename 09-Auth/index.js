@@ -1,7 +1,7 @@
 require('dotenv').config({
     path: './.env'
 })
-
+const morgan = require('morgan');
 const express = require('express');
 const cors = require('cors');
 const { connectDatabase } = require('./database/connectDB');
@@ -17,9 +17,10 @@ const app = express();
 // Standard Middlewares
 app.use(cors())
 app.use(express.json())
+app.use(morgan('tiny'))
+app.use(logger)
 
 // Custom Middlewares
-app.use(logger)
 app.use(auth)
 
 app.use('/user', userRouter);

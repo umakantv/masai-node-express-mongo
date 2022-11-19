@@ -141,6 +141,8 @@ async function githubSignin(req, res) {
     
         const accessToken = result.get('access_token');
     
+        // 2 Fetch the user details with access token
+
         let url2 = 'https://api.github.com/user';
     
         response = await axios.get(url2, {
@@ -160,7 +162,7 @@ async function githubSignin(req, res) {
             existingUser = await userModel.create({
                 authType: 'github',
                 name: userDetails.name,
-                username: userDetails.login,
+                githubUsername: userDetails.login,
                 image: userDetails.avatar_url,
                 email: userDetails.email,
             })
@@ -177,7 +179,7 @@ async function githubSignin(req, res) {
 
     } catch(err) {
 
-        console.error(err)
+        console.error(err.response.data)
         return res.status(400).send({
             status: 'success',
             message: 'Something went wrong'

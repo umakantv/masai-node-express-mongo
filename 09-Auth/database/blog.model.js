@@ -10,11 +10,11 @@ const blogSchema = new mongoose.Schema({
         required: true,
         minLength: 10
     },
-    author: { // user has many blogs
+    author: {
         _id: String,
         name: String,
         iamge: String,
-    }
+    },
 }, {
     timestamps: true
 })

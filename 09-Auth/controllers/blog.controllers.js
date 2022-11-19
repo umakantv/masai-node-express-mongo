@@ -1,4 +1,6 @@
 const blogModel = require("../database/blog.model");
+const userModel = require("../database/user.model");
+
 async function getBlogsByUserId(req, res) {
 
     const {userId} = req.params;
@@ -72,6 +74,13 @@ async function createBlogPost(req, res) {
     }
 
     const blogData = await blogModel.create(blog);
+
+    // No need to await this
+    userModel.findByIdAndUpdate(user._id, {
+        $set: {
+            blogsCount: user.blogsCount + 1
+        }
+    });
 
     return res.send({
         status: 'success',

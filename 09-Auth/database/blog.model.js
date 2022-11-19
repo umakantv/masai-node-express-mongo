@@ -15,6 +15,14 @@ const blogSchema = new mongoose.Schema({
         name: String,
         image: String,
     },
+    commentCount: {
+        type: Number,
+        default: 0
+    },
+    likeCount: {
+        type: Number,
+        default: 0
+    },
 }, {
     timestamps: true
 })

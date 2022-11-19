@@ -8,10 +8,11 @@ const { connectDatabase } = require('./database/connectDB');
 const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
 const commentRouter = require('./routes/comment.routes');
+const followerRouter = require('./routes/following.routes');
+const likeRouter = require('./routes/like.routes');
 
 const auth = require('./middlewares/auth');
 const logger = require('./middlewares/logger');
-const followerRouter = require('./routes/following.routes');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/user', userRouter);
 app.use('/blog', blogRouter);
 app.use('/comment', commentRouter);
 app.use('/follow', followerRouter);
+app.use('/like', likeRouter);
 
 app.get('/*', express.static('public'));
 

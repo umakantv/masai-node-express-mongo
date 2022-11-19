@@ -9,8 +9,8 @@ import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import Container from "@mui/material/Container";
+import {Link} from "react-router-dom";
 
 export default function Layout({ children }) {
   const { user, setShowLoginForm, logout } = useContext(AuthContext);
@@ -27,50 +27,61 @@ export default function Layout({ children }) {
 
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar disableGutters>
-            <div>PT WEB 06</div>
-            <div style={{background: 'red'}}>
-              {user ? (
-                <div>
-                  <Box sx={{ flexGrow: 0 }}>
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar
-                        alt={user.name}
-                        src="/static/images/avatar/2.jpg"
-                      />
-                    </IconButton>
-                    <Menu
-                      sx={{ mt: "45px" }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
-                      <MenuItem onClick={() => {
-                        logout()
-                      }}>
-                        <Typography textAlign="center">Logout</Typography>
-                      </MenuItem>
-                    </Menu>
-                  </Box>
-                </div>
-              ) : (
-                <Button style={{zIndex: 100}} variant="outlined" color="primary" onClick={() => setShowLoginForm(true)}>Login</Button>
-              )}
-            </div>
+      <AppBar position="static" color="default">
+        <Toolbar style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}>
+          <Box>
+            <Link to='/'><Typography variant="h4">Blog App</Typography></Link>
+          </Box>
+          <Box>
+            {user ? (
+              <>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt={user.name}
+                    src={user.image}
+                  />
+                </IconButton>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem>
+                    <Typography>{user.name}</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    logout()
+                  }}>
+                    <Typography>Logout</Typography>
+                  </MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <Button style={{zIndex: 100}} variant="outlined" color="primary" onClick={() => setShowLoginForm(true)}>Login</Button>
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
-      <main>{children}</main>
+      <main style={{marginTop: 20}}>
+        <Container>
+          {children}
+        </Container>
+      </main>
     </div>
   );
 }

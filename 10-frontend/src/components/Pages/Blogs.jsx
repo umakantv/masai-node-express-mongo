@@ -31,7 +31,7 @@ export default function Blogs() {
 
         <Link to='/create'>Create</Link>
         {blogs.map((blog, i) => {
-            return <BlogCard key={i} blog={blog} />
+            return <BlogCard key={i} blog={blog} variant='outlined' />
         })}
     </>
 }

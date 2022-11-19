@@ -1,42 +1,64 @@
 import React from "react";
 import { useState } from "react";
-import Card from "@mui/material/Card";
+import Avatar from "@mui/material/Avatar";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { useContext } from "react";
+import AuthContext from "../../contexts/auth";
 
-export default function CommentForm({submit}) {
+export default function CommentForm({ submit }) {
+  const { user, setShowLoginForm } = useContext(AuthContext);
   const [content, setContent] = useState("");
 
-  return (
-    <Card>
-      <CardContent>
+  if (!user) {
+    return (
+      <CardActions style={{ alignItems: "flex-end" }}>
+        <Button
+          variant="outlined"
+          style={{ marginTop: 20 }}
+          onClick={() => {
+            setShowLoginForm(true);
+          }}
+        >
+          Login to Add a Comment
+        </Button>
+      </CardActions>
+    );
+  }
 
+  return (
+    <CardActions style={{ alignItems: "flex-start" }}>
+      <div>
+        <Avatar alt={user?.name} src={user?.image} />
+      </div>
+      <div>
         <TextField
           autoFocus
-          margin="dense"
           id="content"
           label="Body"
           fullWidth
           multiline
-          rows={4}
-          variant="standard"
+          rows={2}
+          variant="outlined"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-      </CardContent>
-      <CardActions>
-        <Button size="small" variant="contained" onClick={() => {
-          submit(content)
-          .then(() => {
-            setContent('');
-          })
-          .catch(console.log)
-        }}>
+        <Button
+          variant="outlined"
+          style={{ marginTop: 20 }}
+          onClick={() => {
+            submit(content)
+              .then(() => {
+                setContent("");
+              })
+              .catch(console.log);
+          }}
+        >
           Add Comment
         </Button>
-      </CardActions>
-    </Card>
+      </div>
+    </CardActions>
   );
 }

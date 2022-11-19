@@ -5,7 +5,10 @@ import BlogCard from '../Blogs/BlogCard';
 import { addComment, getCommentsByBlogId } from '../../api/comment';
 import CommentCard from '../Blogs/CommentCard';
 import { useParams } from 'react-router';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
 import CommentForm from '../Blogs/CommentForm';
+import { getRelativeTime } from '../Utils/Timestamp';
 
 export default function Blog() {
 
@@ -33,8 +36,35 @@ export default function Blog() {
         fetchComments()
     }, [])
 
+    const user = blog?.author;
+
     return <div>
-        {blog && <BlogCard blog={blog} />}
+        {
+            blog && <div style={{margin: '20px 0'}}>
+                <Typography gutterBottom variant="h5" component="div">
+                    {blog.title}
+                </Typography>
+
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    margin: '20px 0'
+                }}>
+                    <Avatar
+                    alt={user?.name}
+                    src={user?.image}
+                    />
+                    <div style={{marginLeft: 10}}>
+                    <Typography>{user?.name}</Typography>
+                    <Typography>{getRelativeTime(blog.createdAt)}</Typography>
+                    </div>
+                </div>
+
+                <Typography variant="body2" color="text.secondary">
+                    {blog.content}
+                </Typography>
+            </div>
+        }
         <CommentForm submit={async (content) => {
             await addComment(content, id)
 

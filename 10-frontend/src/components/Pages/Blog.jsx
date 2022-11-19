@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { getBlogById } from '../../api/blogs';
-import BlogCard from '../Blogs/BlogCard';
 import { addComment, getCommentsByBlogId } from '../../api/comment';
 import CommentCard from '../Blogs/CommentCard';
 import { useParams } from 'react-router';
@@ -34,6 +33,7 @@ export default function Blog() {
         })
 
         fetchComments()
+        // eslint-disable-next-line
     }, [])
 
     const user = blog?.author;

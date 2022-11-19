@@ -20,6 +20,7 @@ export default function Blogs() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortBy, setSortBy] = useState("createdAt");
+  // eslint-disable-next-line
   const [sortOrder, setSortOrder] = useState("desc");
   const [blogs, setBlogs] = useState([]);
   const [totalBlogs, setTotalBlogs] = useState(0);

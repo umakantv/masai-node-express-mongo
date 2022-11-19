@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { addBlog } from "../../api/blogs";
 import Card from "@mui/material/Card";

@@ -7,11 +7,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import AuthContext from "../../contexts/auth";
-import { Link } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 
 export default function Login() {
-  const { user, login, showLoginForm, setShowLoginForm } =
+  const { login, showLoginForm, setShowLoginForm } =
     useContext(AuthContext);
   const [email, setEmail] = useState("varun.singh@gmail.com");
   const [password, setPassword] = useState("password");

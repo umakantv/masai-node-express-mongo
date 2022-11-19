@@ -10,18 +10,22 @@ export default function CommentCard({ comment }) {
   return (
     <Card style={{ marginTop: 10 }} variant="outlined">
       <CardContent>
-        <CardActions style={{ alignItems: "center" }}>
+        <CardActions
+          style={{ padding: 0, marginBottom: 10, alignItems: "center" }}
+        >
           <Avatar
-            style={{ width: 40 }}
+            style={{ width: 30, height: 30 }}
             alt={comment.author.name}
             src={comment.author.image}
           />
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography variant="h5" component="div">
             {comment.author.name}
           </Typography>
         </CardActions>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.primary">
           {comment.content} <br />
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
           {getRelativeTime(comment.createdAt)}
         </Typography>
       </CardContent>

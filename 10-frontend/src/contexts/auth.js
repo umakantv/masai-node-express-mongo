@@ -1,68 +1,65 @@
-
-import React, { useEffect, useState } from 'react'
-import { getLoggedInUser, loginApi } from '../api/user';
+import React, { useEffect, useState } from "react";
+import { getLoggedInUser, loginApi } from "../api/user";
 
 const AuthContext = React.createContext({
-    user: null,
-    login: (email, passowrd) => {},
-    logout: () => {},
-    setShowLoginForm: () => {},
-    showLoginForm: false
-})
+  user: null,
+  login: (email, passowrd) => {},
+  logout: () => {},
+  setShowLoginForm: () => {},
+  showLoginForm: false,
+});
 
-export function AuthContextProvider({children}) {
+export function AuthContextProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [showLoginForm, setShowLoginForm] = useState(false);
 
-    const [user, setUser] = useState(null)
-    const [showLoginForm, setShowLoginForm] = useState(false);
+  const login = (email, password) => {
+    loginApi(email, password)
+      .then((response) => {
+        const token = response.data.data.token;
 
-    const login = (email, password) => {
-        console.log(email, password)
+        localStorage.setItem("auth-token", token);
 
-        loginApi(email, password)
-        .then(response => {
-            const token = response.data.data.token
+        setShowLoginForm(false);
+      })
+      .catch((err) => {
+        const message = err.response.data.message;
 
-            localStorage.setItem('auth-token', token);
+        alert(message);
+      });
+  };
 
-            setShowLoginForm(false);
-        })
-        .catch(err => {
-            const message = err.response.data.message;
+  const logout = () => {
+    localStorage.removeItem("auth-token");
+    setShowLoginForm(true);
+  };
 
-            alert(message)
-        })
-    }
+  useEffect(() => {
+    const token = localStorage.getItem("auth-token");
 
-    const logout = () => {
-        localStorage.removeItem('auth-token')
-        setShowLoginForm(true)
-    }
+    getLoggedInUser(token)
+      .then((response) => {
+        const user = response.data.data;
+        setUser(user);
+      })
+      .catch(() => {
+        setUser(null);
+      });
+  }, [showLoginForm]);
 
-    useEffect(() => {
-        const token = localStorage.getItem('auth-token')
-
-        getLoggedInUser(token)
-        .then(response => {
-            const user = response.data.data;
-            setUser(user);
-        })
-        .catch(() => {
-            setUser(null)
-        })
-
-    }, [showLoginForm])
-
-    return (
-        <AuthContext.Provider value={{
-            user,
-            showLoginForm,
-            setShowLoginForm,
-            login,
-            logout
-        }}>
-            {children}
-        </AuthContext.Provider>
-    )
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        showLoginForm,
+        setShowLoginForm,
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export default AuthContext;

@@ -1,33 +1,30 @@
 import React from "react";
-import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect } from "react";
 import { loginWithGithubApi } from "../../api/user";
-import { useContext } from "react";
-import AuthContext from "../../contexts/auth";
+import Typography from "@mui/material/Typography";
 
 export default function GithubSignin() {
-  
-  const {setShowLoginForm} = useContext(AuthContext);
-  
-  const params = new URLSearchParams(window.location.search)
-  const code = params.get('code')
-  
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+
   useEffect(() => {
     if (code) {
-      loginWithGithubApi(code)
-      .then(response => {
-        const token = response.data.data.token
+      loginWithGithubApi(code).then((response) => {
+        const token = response.data.data.token;
 
-        localStorage.setItem('auth-token', token);
+        localStorage.setItem("auth-token", token);
 
-        setShowLoginForm(false);
-      })
+        window.location = "/";
+      });
     }
-  }, [code])
+  }, [code]);
 
   return (
-    <Card>
-      
-    </Card>
+    <CardContent>
+      <CircularProgress />
+      <Typography>Logging you in with GitHub</Typography>
+    </CardContent>
   );
 }

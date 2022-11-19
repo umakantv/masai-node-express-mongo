@@ -17,7 +17,7 @@
 Enable OpenSSH optional feature on windows
 https://www.hawaii.edu/askus/1874#:~:text=The%20%E2%80%9COptional%20features%E2%80%9D%20menu%20lists,choose%20%E2%80%9CAdd%20a%20feature%E2%80%9D.
 
-`ssh -v -i path_to_key_pair_file user@public_IP_Address`
+`ssh -v -i path_to_key_pair_file user@public_IP_Address`  
 `ssh -v -i /Users/umakant.vashishth/pt-web-05.pem ubuntu@3.109.121.214`
 
 Then we should see this error
@@ -43,11 +43,11 @@ You should now be able to access EC2 machine through terminal using `ssh pt-web-
 
 ### Setup nodejs
 
-`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`
-`. ~/.nvm/nvm.sh`
+`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash`  
+`. ~/.nvm/nvm.sh`  
 
-`nvm install node`
-`nvm install 16.15.1`
+`nvm install node`  
+`nvm install 16.15.1`  
 
 ### Running our app on some avaiable port
 

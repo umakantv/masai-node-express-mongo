@@ -11,6 +11,7 @@ const commentRouter = require('./routes/comment.routes');
 
 const auth = require('./middlewares/auth');
 const logger = require('./middlewares/logger');
+const followerRouter = require('./routes/following.routes');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(auth)
 app.use('/user', userRouter);
 app.use('/blog', blogRouter);
 app.use('/comment', commentRouter);
+app.use('/follow', followerRouter);
 
 app.get('/*', express.static('public'));
 

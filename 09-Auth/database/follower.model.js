@@ -10,12 +10,12 @@ const followerSchema = new mongoose.Schema({
     follower: {
         _id: String,
         name: String,
-        iamge: String,
+        image: String,
     },
     following: {
         _id: String,
         name: String,
-        iamge: String,
+        image: String,
     },
 }, {
     timestamps: true

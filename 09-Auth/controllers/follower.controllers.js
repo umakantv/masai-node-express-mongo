@@ -31,7 +31,7 @@ async function follow(req, res) {
     if (alreadyFollow) {
         return res.status(400).send({
             status: 'error',
-            message: 'You already follow this user.'
+            message: `You already follow ${followingUser.name}.`
         })
     }
 

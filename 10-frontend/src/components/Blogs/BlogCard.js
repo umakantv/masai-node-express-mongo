@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { getRelativeTime } from '../Utils/Timestamp';
 
 export default function BlogCard({blog, ...rest}) {
-  console.log(blog)
   const {author: user} = blog;
   return (
     <Card style={{marginTop: 10}} {...rest} >

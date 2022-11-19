@@ -1,3 +1,4 @@
+const blogModel = require("../database/blog.model");
 const commentsModel = require("../database/comment.model");
 
 async function getBlogComments(blogId) {
@@ -42,14 +43,39 @@ async function createComment(req, res) {
     }
     const commentData = await commentsModel.create(comment);
 
+    // https://www.mongodb.com/docs/manual/reference/operator/update/inc/#example
+    await blogModel.findByIdAndUpdate(comment.blogId, {
+        $inc: {
+            commentCount: 1,
+        }
+    })
+
     return res.send({
         status: 'success',
         data: commentData
     })
 }
 
+// TODO
+/**
+ * Delete a comment from a post and decrease the comment count
+ * 
+ * User must not be able to delete other users' comments
+ */
+async function deleteComment(req, res) {}
+
+// TODO
+/**
+ * Edit comment content
+ * 
+ * User must be able to edit only comments that are authored by him/her
+ */
+async function editComment(req, res) {}
+
 module.exports = {
     getBlogComments,
     createComment,
     getCommentsByBlogId,
+    editComment,
+    deleteComment
 }

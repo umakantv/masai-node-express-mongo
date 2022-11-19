@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import { addBlog } from "../../api/blogs";
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
@@ -21,7 +20,7 @@ export default function BlogForm() {
 
   const submit = () => {
     addBlog(title, content)
-      .then((response) => {
+      .then(() => {
         window.location = "/";
       })
       .catch((err) => {
@@ -30,37 +29,38 @@ export default function BlogForm() {
   };
 
   return (
-    <Card>
+    <>
       <CardContent>
         <TextField
+          margin="dense"
           autoFocus
           id="title"
           label="Title"
           fullWidth
-          variant="standard"
+          variant="outlined"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
         <TextField
           autoFocus
-          margin="dense"
           id="content"
           label="Body"
+          margin="dense"
           fullWidth
           multiline
           rows={4}
-          variant="standard"
+          variant="outlined"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained" onClick={submit}>
+        <Button size="small" variant="outlined" onClick={submit}>
           Submit
         </Button>
         <Button size="small">Cancel</Button>
       </CardActions>
-    </Card>
+    </>
   );
 }

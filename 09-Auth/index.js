@@ -31,7 +31,7 @@ app.use('/api/comment', commentRouter);
 app.use('/api/follow', followerRouter);
 app.use('/api/like', likeRouter);
 
-app.get('/*', express.static('public'));
+app.get('*', express.static('public'));
 
 connectDatabase()
 .then(() => {

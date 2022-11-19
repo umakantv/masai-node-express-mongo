@@ -1,3 +1,5 @@
+require('dotenv')
+.config()
 const { connectDatabase } = require("../database/connectDB.js");
 const { faker } = require('@faker-js/faker');
 const crypto = require('crypto');
@@ -43,9 +45,9 @@ async function createDummyBlogs(count) {
             content: faker.lorem.paragraph(),
             title: faker.hacker.phrase(),
             author: {
-                authorId: author._id,
-                authorName: author.name,
-                authorImage: author.image
+                _id: author._id,
+                name: author.name,
+                image: author.image
             }
         }
 
@@ -56,4 +58,4 @@ async function createDummyBlogs(count) {
     console.log('Done');
 }
 
-// createDummyUsers(500).then(() => createDummyBlogs(5000));
+createDummyUsers(500).then(() => createDummyBlogs(5000));

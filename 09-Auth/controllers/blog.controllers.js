@@ -19,40 +19,47 @@ async function getBlogsByUserId(req, res) {
 
 async function getBlogsPaginated(req, res) {
 
-    const {
-        search = '',
-        pageSize = 10, 
-        page = 1,
-        sortBy = 'createdAt',
-        sortOrder = 'desc' 
-    } = req.query;
-
-    const totalBlogs = await blogModel.find({
-        title: {
-            $regex: search
-        }
-    }).count();
-
-    const blogs = await blogModel.find({
-        title: {
-            $regex: search
-        }
-    })
-    .sort({
-        [sortBy]: sortOrder === 'asc' ? 1 : -1
-    })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
-
-    return res.send({
-        status: 'success',
-        data: {
-            totalBlogs,
-            blogs,
-            page,
-            pageSize
-        }
-    })
+    try {
+        let {
+            search = '',
+            pageSize = 10, 
+            page = 1,
+            sortBy = 'createdAt',
+            sortOrder = 'desc' 
+        } = req.query;
+    
+        const totalBlogs = await blogModel.find({
+            title: {
+                $regex: search
+            }
+        }).count();
+    
+        const blogs = await blogModel.find({
+            title: {
+                $regex: search
+            }
+        })
+        .sort({
+            [sortBy]: sortOrder === 'asc' ? 1 : -1
+        })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+    
+        return res.send({
+            status: 'success',
+            data: {
+                totalBlogs,
+                blogs,
+                page,
+                pageSize
+            }
+        })
+    } catch(err) {
+        return res.status(500).send({
+            status: 'error',
+            message: 'Something went wrong'
+        })
+    }
 }
 
 async function createBlogPost(req, res) {

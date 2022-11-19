@@ -25,11 +25,11 @@ app.use(logger)
 // Custom Middlewares
 app.use(auth)
 
-app.use('/user', userRouter);
-app.use('/blog', blogRouter);
-app.use('/comment', commentRouter);
-app.use('/follow', followerRouter);
-app.use('/like', likeRouter);
+app.use('/api/user', userRouter);
+app.use('/api/blog', blogRouter);
+app.use('/api/comment', commentRouter);
+app.use('/api/follow', followerRouter);
+app.use('/api/like', likeRouter);
 
 app.get('/*', express.static('public'));
 

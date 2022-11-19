@@ -188,7 +188,7 @@ async function githubSignin(req, res) {
 
     } catch(err) {
 
-        console.error(err.response.data)
+        console.error(err)
         return res.status(400).send({
             status: 'success',
             message: 'Something went wrong'

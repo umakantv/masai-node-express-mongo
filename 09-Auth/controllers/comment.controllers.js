@@ -22,38 +22,48 @@ async function getCommentsByBlogId(req, res) {
 
 async function createComment(req, res) {
 
-    const comment = req.body;
-    const {user} = req;
+    try {
 
-    if (!user) {
-        return res.status(400).send({
+        const comment = req.body;
+        const {user} = req;
+    
+        if (!user) {
+            return res.status(400).send({
+                status: 'error',
+                message: 'User not logged in'
+            })
+        }
+    
+        comment.author = {
+            _id: user._id,
+            name: user.name,
+            image: user.image,
+        }
+    
+        if (!comment.blogId) {
+            throw new Error('Blog id is not provided');
+        }
+        
+        const commentData = await commentsModel.create(comment);
+    
+        // https://www.mongodb.com/docs/manual/reference/operator/update/inc/#example
+        await blogModel.findByIdAndUpdate(comment.blogId, {
+            $inc: {
+                commentCount: 1,
+            }
+        })
+    
+        return res.send({
+            status: 'success',
+            data: commentData
+        })
+    } catch(err) {
+
+        return res.status(500).send({
             status: 'error',
-            message: 'User not logged in'
+            message: 'Something went wrong'
         })
     }
-
-    comment.author = {
-        _id: user._id,
-        name: user.name,
-        image: user.image,
-    }
-
-    if (!comment.blogId) {
-        throw new Error('Blog id is not provided');
-    }
-    const commentData = await commentsModel.create(comment);
-
-    // https://www.mongodb.com/docs/manual/reference/operator/update/inc/#example
-    await blogModel.findByIdAndUpdate(comment.blogId, {
-        $inc: {
-            commentCount: 1,
-        }
-    })
-
-    return res.send({
-        status: 'success',
-        data: commentData
-    })
 }
 
 // TODO

@@ -54,7 +54,9 @@ export default function Blog() {
 
                 <AccountInfo user={user} timestamp={blog.createdAt} />
 
-                <Typography color="text.secondary">{blog.content}</Typography>
+                <Typography color="text.secondary" style={{
+                    whiteSpace: 'pre-wrap'
+                }}>{blog.content}</Typography>
               </div>
             )}
           </CardContent>

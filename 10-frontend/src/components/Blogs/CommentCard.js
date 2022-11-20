@@ -14,7 +14,13 @@ export default function CommentCard({ comment }) {
         >
           <AccountInfo user={comment.author} timestamp={comment.createdAt} />
         </CardActions>
-        <Typography variant="body1" color="text.primary">
+        <Typography
+          variant="body1"
+          color="text.primary"
+          style={{
+            whiteSpace: "pre-wrap",
+          }}
+        >
           {comment.content} <br />
         </Typography>
       </CardContent>

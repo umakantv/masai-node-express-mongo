@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import AuthContext from "../../contexts/auth";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -12,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
+import config, { constants } from "../../config";
 
 export default function Layout({ children }) {
   const { user, setShowLoginForm, logout } = useContext(AuthContext);
@@ -28,7 +28,11 @@ export default function Layout({ children }) {
 
   return (
     <div>
-      <AppBar position="static" color="default">
+      <AppBar
+        position="static"
+        color="default"
+        style={{ background: constants.themeColor }}
+      >
         <Container>
           <Toolbar
             disableGutters
@@ -38,11 +42,18 @@ export default function Layout({ children }) {
               justifyContent: "space-between",
             }}
           >
-            <Box>
-              <Link to="/">
-                <Typography variant="h4">Blog App</Typography>
-              </Link>
-            </Box>
+            <Link to="/">
+              <Stack direction="row" spacing={2}>
+                <div>
+                  <img src={constants.appLogo} alt="logo" width={40} />
+                </div>
+                <div>
+                  <Typography color="white" variant="h4">
+                    {config.APP_NAME}
+                  </Typography>
+                </div>
+              </Stack>
+            </Link>
             <Stack direction="row" spacing={2}>
               {user ? (
                 <>

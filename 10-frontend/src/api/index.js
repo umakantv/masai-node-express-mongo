@@ -1,10 +1,9 @@
 
 import Axios from 'axios'
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+import config from '../config';
 
 const axios = Axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: config.API_BASE_URL,
     headers: {
         'Content-Type': 'application/json'
     },

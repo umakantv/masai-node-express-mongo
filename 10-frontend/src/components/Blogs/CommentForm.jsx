@@ -12,22 +12,6 @@ export default function CommentForm({ submit }) {
   const { user, setShowLoginForm } = useContext(AuthContext);
   const [content, setContent] = useState("");
 
-  if (!user) {
-    return (
-      <CardContent style={{ alignItems: "flex-end" }}>
-        <Button
-          variant="outlined"
-          style={{ marginTop: 20 }}
-          onClick={() => {
-            setShowLoginForm(true);
-          }}
-        >
-          Login to Add a Comment
-        </Button>
-      </CardContent>
-    );
-  }
-
   return (
     <CardContent>
       <Stack direction="row" spacing={2}>
@@ -38,7 +22,7 @@ export default function CommentForm({ submit }) {
           <TextField
             autoFocus
             id="content"
-            label="Add a Comment"
+            placeholder="Add a Comment"
             fullWidth
             multiline
             rows={2}
@@ -52,6 +36,7 @@ export default function CommentForm({ submit }) {
             size="small"
             style={{ marginTop: 10 }}
             onClick={() => {
+              if (!user) return setShowLoginForm(true);
               submit(content)
                 .then(() => {
                   setContent("");

@@ -11,7 +11,7 @@ const FollowingContext = React.createContext({
 });
 
 export function FollowingContextProvider({ children }) {
-  const { user } = useContext(AuthContext);
+  const { user, setShowLoginForm } = useContext(AuthContext);
   const [following, setFollowing] = useState([]);
 
   const refetchFollowing = async () => {
@@ -25,10 +25,12 @@ export function FollowingContextProvider({ children }) {
   };
 
   const followUser = async (userId) => {
+    if (!user) return setShowLoginForm(true);
     return follow(userId).then(refetchFollowing);
   };
 
   const unfollowUser = async (userId) => {
+    if (!user) return setShowLoginForm(true);
     return unfollow(userId).then(refetchFollowing);
   };
 

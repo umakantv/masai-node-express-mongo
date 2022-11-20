@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -42,9 +43,25 @@ export default function Layout({ children }) {
                 <Typography variant="h4">Blog App</Typography>
               </Link>
             </Box>
-            <Box>
+            <Stack direction="row" spacing={2}>
               {user ? (
                 <>
+                  {user ? (
+                    <Link to="/create" style={{ marginLeft: 20 }}>
+                      <Button variant="outlined" color="secondary">
+                        Create Blog
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      style={{ marginLeft: 20 }}
+                      onClick={() => setShowLoginForm(true)}
+                    >
+                      Login to Create Post
+                    </Button>
+                  )}
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt={user.name} src={user.image} />
                   </IconButton>
@@ -86,7 +103,7 @@ export default function Layout({ children }) {
                   Login
                 </Button>
               )}
-            </Box>
+            </Stack>
           </Toolbar>
         </Container>
       </AppBar>

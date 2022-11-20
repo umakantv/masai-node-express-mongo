@@ -4,6 +4,7 @@ import { addBlog } from "../../api/blogs";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 import TextField from "@mui/material/TextField";
 import AuthContext from "../../contexts/auth";
@@ -29,10 +30,9 @@ export default function BlogForm() {
   };
 
   return (
-    <>
-      <CardContent>
+    <Stack spacing={2}>
+      <Stack spacing={2}>
         <TextField
-          margin="dense"
           autoFocus
           id="title"
           label="Title"
@@ -46,7 +46,6 @@ export default function BlogForm() {
           autoFocus
           id="content"
           label="Body"
-          margin="dense"
           fullWidth
           multiline
           rows={4}
@@ -54,13 +53,13 @@ export default function BlogForm() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-      </CardContent>
-      <CardActions>
-        <Button size="small" variant="outlined" onClick={submit}>
+      </Stack>
+      <Stack direction="row" spacing={2}>
+        <Button variant="outlined" onClick={submit}>
           Submit
         </Button>
-        <Button size="small">Cancel</Button>
-      </CardActions>
-    </>
+        <Button>Cancel</Button>
+      </Stack>
+    </Stack>
   );
 }

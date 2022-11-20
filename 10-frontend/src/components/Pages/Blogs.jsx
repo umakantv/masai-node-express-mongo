@@ -67,22 +67,6 @@ export default function Blogs() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          {user ? (
-            <Link to="/create" style={{ marginLeft: 20 }}>
-              <Button variant="outlined" color="secondary">
-                Create Blog
-              </Button>
-            </Link>
-          ) : (
-            <Button
-              variant="outlined"
-              color="secondary"
-              style={{ marginLeft: 20 }}
-              onClick={() => setShowLoginForm(true)}
-            >
-              Login to Create Post
-            </Button>
-          )}
         </div>
         <div
           style={{

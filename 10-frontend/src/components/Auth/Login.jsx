@@ -13,7 +13,6 @@ import RegisterForm from "./RegisterForm";
 export default function Login() {
   const { showLoginForm, setShowLoginForm } = useContext(AuthContext);
   const [formType, setFormType] = useState("login");
-  const [password, setPassword] = useState("password");
 
   const handleClose = () => {
     setShowLoginForm(false);

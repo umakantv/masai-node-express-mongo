@@ -3,10 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
-import Avatar from "@mui/material/Avatar";
 import CommentIcon from "@mui/icons-material/CommentOutlined";
 import { Link } from "react-router-dom";
-import { getRelativeTime } from "../Utils/Timestamp";
+import AccountInfo from "../Auth/AccountInfo";
 
 export default function BlogCard({ blog, ...rest }) {
   const { author: user } = blog;
@@ -28,18 +27,7 @@ export default function BlogCard({ blog, ...rest }) {
             alignItems: "center",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Avatar alt={user?.name} src={user?.image} />
-            <div style={{ marginLeft: 10 }}>
-              <Typography>{user?.name}</Typography>
-              <Typography>{getRelativeTime(blog.createdAt)}</Typography>
-            </div>
-          </div>
+          <AccountInfo user={user} timestamp={blog.createdAt} />
           <div
             style={{
               display: "flex",

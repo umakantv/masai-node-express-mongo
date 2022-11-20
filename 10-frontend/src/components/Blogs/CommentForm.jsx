@@ -36,17 +36,19 @@ export default function CommentForm({ submit }) {
         <TextField
           autoFocus
           id="content"
-          label="Body"
+          label="Add a Comment"
           fullWidth
           multiline
           rows={2}
           variant="outlined"
+          size="small"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
         <Button
           variant="outlined"
-          style={{ marginTop: 20 }}
+          size="small"
+          style={{ marginTop: 10 }}
           onClick={() => {
             submit(content)
               .then(() => {
@@ -55,7 +57,7 @@ export default function CommentForm({ submit }) {
               .catch(console.log);
           }}
         >
-          Add Comment
+          Add
         </Button>
       </div>
     </CardActions>

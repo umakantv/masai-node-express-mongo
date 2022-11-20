@@ -4,10 +4,11 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import AccountInfo from "../Auth/AccountInfo";
+import Divider from "@mui/material/Divider";
 
 export default function CommentCard({ comment }) {
   return (
-    <Card style={{ marginTop: 10 }} variant="outlined">
+    <>
       <CardContent>
         <CardActions
           style={{ padding: 0, marginBottom: 10, alignItems: "center" }}
@@ -18,6 +19,7 @@ export default function CommentCard({ comment }) {
           {comment.content} <br />
         </Typography>
       </CardContent>
-    </Card>
+      <Divider />
+    </>
   );
 }

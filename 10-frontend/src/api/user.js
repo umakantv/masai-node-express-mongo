@@ -22,3 +22,7 @@ export async function loginWithGithubApi(code) {
 export async function getLoggedInUser(token) {
   return axios.get(`/user/loggedInUser`);
 }
+
+export async function getUser(userId) {
+  return axios.get(`/user/${userId}`);
+}

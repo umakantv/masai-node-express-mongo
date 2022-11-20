@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useContext } from "react";
@@ -13,7 +14,7 @@ export default function CommentForm({ submit }) {
 
   if (!user) {
     return (
-      <CardActions style={{ alignItems: "flex-end" }}>
+      <CardContent style={{ alignItems: "flex-end" }}>
         <Button
           variant="outlined"
           style={{ marginTop: 20 }}
@@ -23,43 +24,45 @@ export default function CommentForm({ submit }) {
         >
           Login to Add a Comment
         </Button>
-      </CardActions>
+      </CardContent>
     );
   }
 
   return (
-    <CardActions style={{ alignItems: "flex-start" }}>
-      <div>
-        <Avatar alt={user?.name} src={user?.image} />
-      </div>
-      <div>
-        <TextField
-          autoFocus
-          id="content"
-          label="Add a Comment"
-          fullWidth
-          multiline
-          rows={2}
-          variant="outlined"
-          size="small"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <Button
-          variant="outlined"
-          size="small"
-          style={{ marginTop: 10 }}
-          onClick={() => {
-            submit(content)
-              .then(() => {
-                setContent("");
-              })
-              .catch(console.log);
-          }}
-        >
-          Add
-        </Button>
-      </div>
-    </CardActions>
+    <CardContent>
+      <Stack direction="row" spacing={2}>
+        <div>
+          <Avatar alt={user?.name} src={user?.image} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <TextField
+            autoFocus
+            id="content"
+            label="Add a Comment"
+            fullWidth
+            multiline
+            rows={2}
+            variant="outlined"
+            size="small"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <Button
+            variant="outlined"
+            size="small"
+            style={{ marginTop: 10 }}
+            onClick={() => {
+              submit(content)
+                .then(() => {
+                  setContent("");
+                })
+                .catch(console.log);
+            }}
+          >
+            Add
+          </Button>
+        </div>
+      </Stack>
+    </CardContent>
   );
 }

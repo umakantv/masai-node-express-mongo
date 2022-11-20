@@ -87,7 +87,7 @@ async function createBlogPost(req, res) {
         $inc: {
             blogsCount: 1,
         }
-    });
+    }).then(() => {});
 
     return res.send({
         status: 'success',

@@ -1,21 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getBlogs } from "../../api/blogs";
 import BlogCard from "../Blogs/BlogCard";
-import Button from "@mui/material/Button";
 import TablePagination from "@mui/material/TablePagination";
-import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import AuthContext from "../../contexts/auth";
 
 export default function Blogs() {
   // TODO: read the default values from URL query params
-  const { user, setShowLoginForm } = useContext(AuthContext);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);

@@ -5,10 +5,9 @@ import { addComment, getCommentsByBlogId } from "../../api/comment";
 import CommentCard from "../Blogs/CommentCard";
 import { useParams } from "react-router";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
 import CommentForm from "../Blogs/CommentForm";
-import { getRelativeTime } from "../Utils/Timestamp";
 import { Divider } from "@mui/material";
+import AccountInfo from "../Auth/AccountInfo";
 
 export default function Blog() {
   const [blog, setBlog] = useState(null);
@@ -24,6 +23,7 @@ export default function Blog() {
       setComments(comments);
     });
   };
+
   useEffect(() => {
     getBlogById(id).then((response) => {
       const blog = response.data.data;
@@ -44,19 +44,7 @@ export default function Blog() {
             {blog.title}
           </Typography>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              margin: "20px 0",
-            }}
-          >
-            <Avatar alt={user?.name} src={user?.image} />
-            <div style={{ marginLeft: 10 }}>
-              <Typography>{user?.name}</Typography>
-              <Typography>{getRelativeTime(blog.createdAt)}</Typography>
-            </div>
-          </div>
+          <AccountInfo user={user} timestamp={blog.createdAt} />
 
           <Typography variant="body2" color="text.secondary">
             {blog.content}
@@ -65,7 +53,9 @@ export default function Blog() {
       )}
 
       <Divider />
-      <Typography variant="h5">Comments</Typography>
+      <Typography variant="h5" style={{ marginTop: 20 }}>
+        Comments
+      </Typography>
       <CommentForm
         submit={async (content) => {
           await addComment(content, id);

@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import { addBlog } from "../../api/blogs";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 

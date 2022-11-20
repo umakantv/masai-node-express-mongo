@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getLoggedInUser, loginApi } from "../api/user";
+import { FollowingContextProvider } from "./following";
 
 const AuthContext = React.createContext({
   user: null,
@@ -57,7 +58,7 @@ export function AuthContextProvider({ children }) {
         logout,
       }}
     >
-      {children}
+      <FollowingContextProvider>{children}</FollowingContextProvider>
     </AuthContext.Provider>
   );
 }

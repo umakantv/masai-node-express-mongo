@@ -164,7 +164,7 @@ async function githubSignin(req, res) {
 
         let existingUser = await userModel.findOne({
             authType: 'github',
-            username: userDetails.login
+            githubUsername: userDetails.login
         });
 
         if (!existingUser) {

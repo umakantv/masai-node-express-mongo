@@ -9,7 +9,7 @@ import FollowingContext from "../../contexts/following";
 import { getUser } from "../../api/user";
 
 export default function AccountDetailsCard({ userId }) {
-  const { followingUser, followUser, unfollowUser, following } =
+  const { followingUser, followUser, unfollowUser } =
     useContext(FollowingContext);
   const [user, setUser] = useState(null);
 
@@ -21,6 +21,7 @@ export default function AccountDetailsCard({ userId }) {
     if (userId) {
       fetchUser();
     }
+    // eslint-disable-next-line
   }, [userId]);
 
   if (!user) return "";
@@ -56,7 +57,11 @@ export default function AccountDetailsCard({ userId }) {
         </Button>
         <Typography>{user.blogsCount} Posts</Typography>
         {user.authType === "github" && (
-          <a href={`https://github.com/${user.githubUsername}`} target="_blank">
+          <a
+            href={`https://github.com/${user.githubUsername}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             <Typography>https://github.com/{user.githubUsername}</Typography>
           </a>
         )}

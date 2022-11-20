@@ -49,14 +49,14 @@ async function follow(req, res) {
     })
 
     await userModel.findByIdAndUpdate(followingUser._id, {
-        $set: {
-            followerCount: (followingUser.followerCount || 0) + 1
+        $inc: {
+            followerCount: 1,
         }
     })
 
     await userModel.findByIdAndUpdate(user._id, {
-        $set: {
-            followingCount: (user.followingCount || 0) + 1
+        $inc: {
+            followingCount: 1,
         }
     })
 
@@ -93,14 +93,14 @@ async function unfollow(req, res) {
     })
 
     await userModel.findByIdAndUpdate(followingUser._id, {
-        $set: {
-            followerCount: (followingUser.followerCount || 0) - 1
+        $inc: {
+            followerCount: -1,
         }
     })
 
     await userModel.findByIdAndUpdate(user._id, {
-        $set: {
-            followingCount: (user.followingCount || 0) - 1
+        $inc: {
+            followingCount: -1,
         }
     })
 

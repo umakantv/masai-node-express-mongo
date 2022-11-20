@@ -84,8 +84,8 @@ async function createBlogPost(req, res) {
 
     // No need to await this
     userModel.findByIdAndUpdate(user._id, {
-        $set: {
-            blogsCount: (user.blogsCount || 0) + 1
+        $inc: {
+            blogsCount: 1,
         }
     });
 

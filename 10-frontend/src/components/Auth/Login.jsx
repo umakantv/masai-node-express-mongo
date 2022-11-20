@@ -1,18 +1,18 @@
 import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
 
 import AuthContext from "../../contexts/auth";
 import Divider from "@mui/material/Divider";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
 export default function Login() {
-  const { login, showLoginForm, setShowLoginForm } =
-    useContext(AuthContext);
-  const [email, setEmail] = useState("varun.singh@gmail.com");
+  const { showLoginForm, setShowLoginForm } = useContext(AuthContext);
+  const [formType, setFormType] = useState("login");
   const [password, setPassword] = useState("password");
 
   const handleClose = () => {
@@ -22,41 +22,32 @@ export default function Login() {
   return (
     <div>
       <Dialog open={showLoginForm} onClose={handleClose}>
-        <DialogTitle>Login</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="outlined"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="outlined"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => login(email, password)}>Login</Button>
-        </DialogActions>
+        {formType === "login" ? (
+          <>
+            <DialogTitle>Login</DialogTitle>
+            <LoginForm />
+          </>
+        ) : (
+          <>
+            <DialogTitle>Sign Up</DialogTitle>
+            <RegisterForm setFormType={setFormType} />
+          </>
+        )}
 
         <Divider />
         <DialogContent>
-          <a href="https://github.com/login/oauth/authorize?client_id=5832e06e94cb19b8f146">
-            Login With Github
-          </a>
+          <DialogActions>
+            <Button
+              onClick={() =>
+                setFormType(formType === "login" ? "register" : "login")
+              }
+            >
+              {formType === "login" ? "Sign Up" : "Login"}
+            </Button>
+            <a href="https://github.com/login/oauth/authorize?client_id=5832e06e94cb19b8f146">
+              <Button>Login With Github</Button>
+            </a>
+          </DialogActions>
         </DialogContent>
       </Dialog>
     </div>

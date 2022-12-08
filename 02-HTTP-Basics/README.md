@@ -3,6 +3,8 @@
 
 Protocol means set of rules.
 
+Board Link: https://excalidraw.com/#json=PLswJS_0QG4oy6FxQetIb,hN78xVTrdwGJah1Guxx7Xw
+
 Internet - computers talking to each other
 
 

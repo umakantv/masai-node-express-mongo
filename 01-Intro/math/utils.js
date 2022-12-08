@@ -15,7 +15,7 @@ function fibonacciSlow(n) {
     } else if (n == 2) {
         return 1;
     } else {
-        return fibonacci(n-1) + fibonacci(n-2);
+        return fibonacciSlow(n-1) + fibonacciSlow(n-2);
     }
 }
 

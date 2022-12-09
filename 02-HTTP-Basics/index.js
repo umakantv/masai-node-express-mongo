@@ -2,9 +2,10 @@
 // Core module
 const http = require('http');
 const fs = require('fs');
+const fsPromise = require('fs/promises');
 const { fibonacciSlow, fibonacci } = require('./math/utils');
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
 
     // fs.readFileSync()
     // fs.readFile('', (err, data) => {
@@ -27,6 +28,23 @@ const server = http.createServer((req, res) => {
         const result = fibonacci(Number(num));
 
         return res.end(String(result));
+    } else if (req.url === '/read-file') {
+
+        fsPromise.readFile('./README.md', {
+            encoding: 'utf-8'
+        }).then(result => {
+            return res.end(result)
+        });
+
+        // fs.readFile('./README.md', (err, data) => {
+        //     if (err) {
+        //         return res.end('Something went wrong');
+        //     } else {
+        //         res.write(data.toString());
+        //     }
+        //     return res.end();
+        // })
+
     } else {
         return res.end('Welcome to fibonacci API. Send your requests to /fibonacci or /finbonacci-slow')
     }

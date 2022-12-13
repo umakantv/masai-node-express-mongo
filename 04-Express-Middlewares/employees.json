@@ -1,0 +1,104 @@
+[
+  {
+    "id": 1,
+    "name": "Varun Bhatt",
+    "designation": "Software Engineer",
+    "gender": "male"
+  },
+  {
+    "id": 2,
+    "name": "Sonia Yadav",
+    "designation": "Human Resource",
+    "gender": "female"
+  },
+  {
+    "name": "Kanika Verma",
+    "designation": "CTO",
+    "gender": "female",
+    "id": 3
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 5
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 6
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 7
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 8
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 9
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 10
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 11
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 12
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 13
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 14
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "Product Designer",
+    "gender": "male",
+    "id": 15
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 16
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 17
+  },
+  {
+    "name": "Mohit Khanna",
+    "designation": "CEO",
+    "gender": "male",
+    "id": 18
+  }
+]

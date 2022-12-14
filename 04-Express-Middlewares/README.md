@@ -1,6 +1,8 @@
 
 # Express Middlewares
 
+Board Image: https://excalidraw.com/#json=3tgJe4t2zEhgCEtGwmuMv,iNvKGSYq4C5QZhRKYeMIsg
+
 1. How middleware chain works
 2. Group routes in router
 3. Inline and Router middlewares

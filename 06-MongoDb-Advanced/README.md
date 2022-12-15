@@ -1,8 +1,35 @@
 
 # MongoDB Advanced Operations
 
-## Import Data
+- [MongoDB Advanced Operations](#mongodb-advanced-operations)
+  - [MongoDB Commands](#mongodb-commands)
+    - [Import Data](#import-data)
+    - [Show Databases](#show-databases)
+    - [Switch Database](#switch-database)
+    - [Create Collection](#create-collection)
+    - [Show Collections](#show-collections)
+  - [CRUD Operations](#crud-operations)
+    - [Create Document in a collection](#create-document-in-a-collection)
+    - [Insert Many](#insert-many)
+    - [Find Documents in a collection](#find-documents-in-a-collection)
+    - [Update Document in a collection](#update-document-in-a-collection)
+    - [Delete Documents](#delete-documents)
+  - [More Functions](#more-functions)
+    - [Sort, Limit, Skip](#sort-limit-skip)
+    - [Count](#count)
+  - [MongoDB Operators](#mongodb-operators)
+    - [Comparison Operators](#comparison-operators)
+    - [Logical Operators](#logical-operators)
+    - [Array Operators](#array-operators)
+    - [Element Operators](#element-operators)
+    - [Evaluation Operators](#evaluation-operators)
 
+
+## MongoDB Commands
+
+### Import Data
+
+Run this in terminal, not in mongosh.
 ```
 mongorestore --db users-example users.bson
 ```
@@ -32,10 +59,12 @@ db.createCollection('lectures')
 show collections
 ```
 
+## CRUD Operations
+
 ### Create Document in a collection
 
 ```js
-db.<collection_name>.insertOne({ title: 'Nodejs Intro', sprint: 1, date: "2022-12-08" })
+db.lectures.insertOne({ title: 'Nodejs Intro', sprint: 1, date: "2022-12-08" })
 ```
 
 ### Insert Many
@@ -66,7 +95,6 @@ db.users.insertMany([
 ])
 ```
 
-
 ### Find Documents in a collection
 
 ```js
@@ -76,32 +104,6 @@ db.lectures.find({ title: "MongoDB" })
 
 db.lectures.findOne({ _id: ObjectId("6399f881d17280baeb06c26f") })
 ```
-
-### Sort, Limit, Skip
-
-```js
-
-db.users.find({shirt_size: 'L'}).sort({
-    name: 1 // -1 for descending order
-})
-
-db.users.find().sort({
-    shirt_size: 1,
-    name: 1 // -1 for descending order
-})
-
-// Skipping first 2 records
-db.users.find().sort({ shirt_size: 1, name: 1  }).limit(3).skip(2)
-```
-
-### Count
-
-```js
-db.users.countDocuments()
-
-db.users.countDocuments({ shirt_size: 'XL' })
-```
-
 
 ### Update Document in a collection
 
@@ -130,6 +132,33 @@ db.users.updateMany(
 db.user.findOneAndDelete()
 
 db.user.deleteMany({ name: 'Vikas Yadav' })
+```
+
+## More Functions
+
+### Sort, Limit, Skip
+
+```js
+
+db.users.find({shirt_size: 'L'}).sort({
+    name: 1 // -1 for descending order
+})
+
+db.users.find().sort({
+    shirt_size: 1,
+    name: 1 // -1 for descending order
+})
+
+// Skipping first 2 records
+db.users.find().sort({ shirt_size: 1, name: 1  }).limit(3).skip(2)
+```
+
+### Count
+
+```js
+db.users.countDocuments()
+
+db.users.countDocuments({ shirt_size: 'XL' })
 ```
 
 

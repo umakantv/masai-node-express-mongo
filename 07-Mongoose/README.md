@@ -2,7 +2,7 @@
 
 # Mongoose
 
-Board Link: https://excalidraw.com/#json=bQuWalnJs_ZlpDblsJrb4,NLBjOBL1hgL67vqyP6fdAg
+Board Link: https://excalidraw.com/#json=n_KDlbnQ0ngnzS1NF42n8,LtmvrG-PoNubbg4pgGmqbA
 
 Q. What is the data that we want to store?
 

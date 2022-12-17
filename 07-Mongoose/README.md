@@ -2,6 +2,8 @@
 
 # Mongoose
 
+Board Link: https://excalidraw.com/#json=bQuWalnJs_ZlpDblsJrb4,NLBjOBL1hgL67vqyP6fdAg
+
 Q. What is the data that we want to store?
 
 A. Employee Info

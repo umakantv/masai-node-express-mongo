@@ -1,5 +1,7 @@
 # Complete Auth flow
 
+Board: https://excalidraw.com/#json=43_hu-dirMXxIrB-LHM02,v21yDb0aXGVY4ZKnxz51WA
+
 In this tutorial we learn how to secure APIs with JWT tokens
 
 For unauthorized users

@@ -1,6 +1,8 @@
 
 # Auth & OAuth
 
+Board Link: https://excalidraw.com/#json=43_hu-dirMXxIrB-LHM02,v21yDb0aXGVY4ZKnxz51WA
+
 We have no mechanism to tie each request with the user.
 
 

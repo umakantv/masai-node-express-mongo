@@ -10,9 +10,7 @@ const UserSchema = new mongoose.Schema({
         select: false
     },
     authType: String, // 'email-password', 'github', 'google', 'facebook'
-    githubOAuth: {
-        username: String,
-    },
+    githubUsername: String,
     postCount: {
         type: Number,
         default: 0,

@@ -88,7 +88,7 @@ async function githubSignin(code) {
 
     let user = await UserModel.findOne({
         authType: 'github',
-        'githubOAuth.username': userDetails.username
+        'githubUsername': userDetails.username
     })
 
     if (!user) {
@@ -96,9 +96,7 @@ async function githubSignin(code) {
             name: userDetails.name,
             image: userDetails.avatar_url,
             authType: 'github',
-            githubOAuth: {
-                username: userDetails.username
-            }
+            githubUsername: userDetails.username
         })
     }
 

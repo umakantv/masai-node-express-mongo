@@ -15,9 +15,12 @@ app.use(cors());
 
 app.use(express.static('build')); // next is not called
 
-app.use('/', userRouter);
-app.use('/', postRouter);
-app.use('/', commentRouter);
+app.use('/api', userRouter);
+app.use('/api', postRouter);
+app.use('/api', commentRouter);
+app.use('/api/*', (req, res) => {
+    return res.status(404).send('Not found')
+});
 
 app.all('/*', (req, res, next) => {
     const indexFile = path.join(__dirname, 'build', 'index.html');

@@ -1,7 +1,7 @@
 {
   "name": "07-mongoose",
   "version": "1.0.0",
-  "description": "How do we connect with mongodb from nodejs",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@faker-js/faker": "^7.6.0",
-    "mongoose": "^6.7.2"
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.0",
+    "multer": "^1.4.5-lts.1"
   },
-  "type": "module"
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
+  }
 }

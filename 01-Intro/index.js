@@ -1,45 +1,48 @@
 
-console.log('Hello World')
+// const axios = require('axios');
+const voucherCodeGenerator = require('voucher-code-generator');
+const fs = require('fs'); // Core module
+const {
+    fibonacci,
+    fibonacciSlow,
+} = require('./math/utils');
 
-// import randomInt from './random'
+const {
+    randomIntBetween
+} = require('./math/utils');
 
-// 1. User defined modules
-// const randomModule = require('./random')
-// const {randomInt} = require('./random')
-
-import axios from 'axios'
-import {randomInt } from './random.js'
-
-// 2. Core Modules
-// const fs = require('fs');
-import fs from 'fs'
-
-// 3. Third party modules
-// const moment = require('moment');
-import moment from 'moment'
-// const axios = require('axios')
+const voucherCodeGenerator2 = require('voucher-code-generator');
+require('./math.js');
 
 
-const date = moment().add(4, 'weeks').format('DD MMM YYYY');
-
-console.log(date);
-
-
-export async function getPosts() {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-    .then(res => {
-        console.log(res.data)
-    })
-}
+// setInterval
+// setTimeout
+// console.log('Later')
+// console.log(document) // will throw an error
+// console.log('Hello world');
 
 
+let num = Number(process.argv[2])
+let ans = fibonacci(num)
 
-const content = fs.readFileSync('./random.js', {
-    encoding: 'utf-8'
-})
+console.log(num, ans)
 
-// console.log(content)
+// const content = fs.readFileSync('./README.md')
+// console.log(content.toString())
 
 
-console.log(randomInt(100, 300))
-// console.log(randomModule.greeting('PT WEB 6'))
+// fetch('https://jsonplaceholder.typicode.com/posts')
+// .then(response => response.json())
+// .then(console.log)
+
+// axios.get('https://jsonplaceholder.typicode.com/users')
+// .then(response => console.log(response.error))
+// .catch(err => console.log(err))
+
+// let vouchers = voucherCodeGenerator.generate({
+//     length: 6,
+//     count: 4,
+//     charset: "0123456789"
+// });
+
+// console.log(vouchers)

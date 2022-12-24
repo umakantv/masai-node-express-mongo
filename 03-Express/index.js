@@ -1,168 +1,105 @@
 
-import cors from 'cors'
-import express from 'express'
-import { addEmployee, deleteEmployee, getAllEmployees, getEmployee } from './employees.js'
 
-const app = express()
+const express = require('express');
+const cors = require('cors');
+const { getAllEmployees, getEmployeeById, addEmployee, updateEmployeeDataById, deleteEmployeeById } = require('./employees');
 
-// This will instruct express that all req.body should be parsed as json
-app.use(express.json())
+const app = express();
 
-// cors issue in browser when implmenting with react
-app.use(cors())
+app.use(cors()); // to allow response in browser from other host
+app.use(express.json()); // to read req body as json data
 
-// Register any request handlers
+app.use(express.static('build'));
+
+// READ
+app.get('/employees', async (req, res) => {
+
+    const employees = await getAllEmployees();
+
+    res.send({
+        data: employees
+    })
+
+    console.log('Reponse has been sent')
+})
+
+// READ
+app.get('/employee/:id', async (req, res) => {
+
+    const id = req.params.id;
+
+    const employee = await getEmployeeById(Number(id));
+
+    if (employee) {
+        return res.send({
+            data: employee
+        })
+    } else {
+        return res.status(404).send({
+            message: 'Employee with given id does not exist'
+        })
+    }
+
+})
+
+// CREATE
+app.post('/employee', async (req, res) => {
+    const employeeData = req.body;
+
+    const employee = await addEmployee(employeeData);
+
+    return res.send({
+        data: employee
+    });
+})
+
+// UPDATE
+app.patch('/employee/:id', async (req, res) => {
+
+    const id = req.params.id;
+
+    const employeeData = req.body;
+
+    const employee = await updateEmployeeDataById(Number(id), employeeData);
+
+    return res.send({
+        data: employee
+    });
+})
+
+// DELETE
+app.delete('/employee/:id', async (req, res) => {
+
+    const id = req.params.id;
+
+    const employee = await deleteEmployeeById(Number(id));
+
+    if (employee) {
+        return res.send({
+            data: employee
+        })
+    } else {
+        return res.status(404).send({
+            message: 'Employee with given id does not exist'
+        })
+    }
+})
+
+// GET /hello
+app.get('/hello', (req, res, next) => {
+    res.send('Hello there')
+})
+
 // GET /
 app.get('/', (req, res) => {
     res.send({
-        status: 'error',
-        data: 'Welcome to Employee Registeration System API'
-    })
-})
-
-// GET '/employee/:id'
-app.get('/employee/:id', (req, res) => {
-
-    try {
-
-        let {id} = req.params;
-
-        if (isNaN(parseInt(id))) {
-    
-            return res.status(400).send({
-                status: 'error',
-                error: 'Invalid Id'
-            })
-    
-        } else {
-    
-            id = parseInt(id);
-            const employee = getEmployee(id);
-    
-            if (employee) {
-    
-                return res.status(200).send({
-                    status: 'success',
-                    data: employee
-                })
-            } else {
-                return res.status(404).send({
-                    status: 'error',
-                    error: 'Not found'
-                })
-            }
-        }
-    } catch(ex) {
-        console.error(ex);
-
-        return res.status(500).send({
-            status: 'error',
-            error: 'Internal Server Error'
-        })
-    }
-})
-
-// POST '/employee'
-app.post('/employee', (req, res) => {
-
-    const data = req.body;
-    // Joi
-    if (data.name && data.designation && data.department) {
-
-        const employee = addEmployee(data);
-        return res.status(200).send({
-            staus: 'success',
-            data: employee
-        })
-
-    } else {
-        return res.status(400).send({
-            status: 'error',
-            error: 'Incomplete data'
-        })
-    }
-})
-
-// DELETE '/employee/:id'
-app.delete('/employee/:id', (req, res) => {
-
-    try {
-
-        let {id} = req.params;
-
-        if (isNaN(parseInt(id))) {
-    
-            return res.status(400).send({
-                status: 'error',
-                error: 'Invalid Id'
-            })
-    
-        } else {
-    
-            id = parseInt(id);
-            const employee = deleteEmployee(id);
-    
-            if (employee) {
-    
-                return res.status(200).send({
-                    status: 'success',
-                    data: employee
-                })
-            } else {
-                return res.status(404).send({
-                    status: 'error',
-                    error: 'Not found'
-                })
-            }
-        }
-    } catch(ex) {
-        console.error(ex);
-
-        return res.status(500).send({
-            status: 'error',
-            error: 'Internal Server Error'
-        })
-    }
-})
-
-
-// DELETE '/employee/:id'
-app.get('/employees', (req, res) => {
-
-    const employees = getAllEmployees()
-
-    return res.send({
-        status: 'success',
-        data: employees
+        message: 'Welcome to Fibonacci API'
     })
 })
 
 
-async function wait(seconds) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve();
-        }, seconds * 1000);
-    })
-}
+const port = Number(process.argv[2]) || 3001;
 
-/**
- * Question:
- * 
- * If we make two requests as follows exactly one after another without any delay at T0
- * http://localhost:3050/wait?seconds=10
- * http://localhost:3050/wait?seconds=5
- * 
- * 1. The first request ends at T0+10 seconds, Second at T0+15 seconds
- * 2. The first request ends at T0+10 seconds, Second at T0+5 seconds
- * 
- */
-app.get('/wait', async (req, res) => {
-    await wait(req.query.seconds);
-    res.send('Done')
-})
-
-
-app.listen(3050, () => {
-    console.log('http://localhost:3050');
+app.listen(port, () => {
+    console.log(`Server listening on http://localhost:${port}`);
 })

@@ -1,85 +1,31 @@
 
-# Express
 
-Exployee Register
+# CRUD operations with Express
 
-2xx - Everything worked as supposed
-3xx - Redirection
-4xx - something is wrong with the request
-5xx - Internal issues
+## Employee Management APIs
 
-```json
-{
-    "name": "Abhishek Mathur",
-    "designation": "Software Developer",
-    "employeeId": 1,
-    "department": "technology"
-}
-```
+### Endpoints
 
-- GET '/employee/:id' => the json of an employee
-  - Ex: GET '/employee/1' => 200
-    - {
-        "name": "Abhishek Mathur",
-        "designation": "Software Developer",
-        "employeeId": 1,
-        "department": "technology"
-    }
-  - Ex: GET '/employee/741' => 404
-    - {
-        status: "error",
-        error: "Not found"
-    }
-  - Ex: GET '/employee/invalid_employee_id' => 400
-    - {
-        status: "error",
-        error: "Invalid Id"
-    }
-
-- POST '/employee' => Add the employee in the data store
-  - Ex: POST '/employee' => 200
-    - {
-        "name": "Tanmay Sharma",
-        "designation": "Lawyer",
-        "department": "legal"
-    }
-    - {
-        "name": "Tanmay Sharma",
-        "employeeId": 2,
-        "designation": "Lawyer",
-        "department": "legal"
-    }
-
-- DELETE '/employee/:id' => Delete employee with the id if present 
-- Ex: DELETE '/employee/1' => 200
-    - {
-        "name": "Abhishek Mathur",
-        "designation": "Software Developer",
-        "employeeId": 1,
-        "department": "technology"
-    }
-  - Ex: GET '/employee/741' => 404
-    - {
-        status: "error",
-        error: "Not found"
-    }
-  - Ex: GET '/employee/invalid_employee_id' => 400
-    - {
-        status: "error",
-        error: "Invalid Id"
-    }
+1. GET /employees
+2. GET /employee/:id
+3. POST /employee
+4. DELETE /employee/:id
+5. UPDATE /employee/:id
 
 
-- GET '/employees' => array of all employee
+Learning Objective
+
+1. Accepting Data from Client
+   * Req Params
+   * Req Body - JSON
+   * Req Query Params
+2. Support different request methods
+3. How to get Req body as JSON - `app.use(express.json())`
+4. Response - Status Code
+5. Persistent Storage
+6. Handle CORS issue 
+7. Host static content - like images, html, css, JS, ...
 
 
-New ID => It should be max of the available
 
-
-1, 2, 3, 4, 5
-
-5 + 1 => 6
-
-1, 2, 4, 5, 6
-
-5 + 1 => 6
+Static vs Dynamic

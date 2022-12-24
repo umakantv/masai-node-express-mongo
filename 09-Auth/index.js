@@ -1,41 +1,58 @@
-require('dotenv').config({
-    path: './.env'
-})
-const morgan = require('morgan');
-const express = require('express');
-const cors = require('cors');
-const { connectDatabase } = require('./database/connectDB');
-const blogRouter = require('./routes/blog.routes');
-const userRouter = require('./routes/user.routes');
-const commentRouter = require('./routes/comment.routes');
-const followerRouter = require('./routes/following.routes');
-const likeRouter = require('./routes/like.routes');
+require('dotenv').config()
 
-const auth = require('./middlewares/auth');
-const logger = require('./middlewares/logger');
+const path = require('path');
+const express = require('express');
+const axios = require('axios');
 
 const app = express();
 
-// Standard Middlewares
-app.use(cors())
-app.use(express.json())
-app.use(morgan('tiny'))
-app.use(logger)
+app.use(express.static('build')); // next is not called
 
-// Custom Middlewares
-app.use(auth)
+app.get('/github-login/:code', async (req, res) => {
 
-app.use('/api/user', userRouter);
-app.use('/api/blog', blogRouter);
-app.use('/api/comment', commentRouter);
-app.use('/api/follow', followerRouter);
-app.use('/api/like', likeRouter);
+    const code = req.params.code;
 
-app.get('*', express.static('public'));
+    try {
+        let url = `https://github.com/login/oauth/access_token`;
 
-connectDatabase()
-.then(() => {
-    app.listen(3050, () => {
-        console.log('Listening on http://localhost:3050')
-    })
+        let response = await axios.post(url, {
+            client_id: process.env.GITHUB_OAUTH_CLIENT_ID,
+            client_secret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
+            code: code
+        }, {
+            headers: {
+                'Accept': "application/json"
+            }
+        })
+
+        const data = response.data;
+
+        url = "https://api.github.com/user"
+
+        response = await axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${data.access_token}`
+            }
+        })
+
+        res.send({
+            data: response.data
+        })
+
+    } catch (err) {
+        console.error(err.message)
+        res.send({
+            error: 'Something went wrong'
+        })
+    }
 })
+
+app.all('/*', (req, res, next) => {
+    const indexFile = path.join(__dirname, 'build', 'index.html');
+    // console.log(indexFile);
+    res.sendFile(indexFile);
+})
+
+app.listen(3066, () => {
+    console.log('Server listening at http://localhost:3066')
+});

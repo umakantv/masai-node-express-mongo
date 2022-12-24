@@ -17,7 +17,5 @@ This repository contains source code for lectures from Backend class at Masai.
 * [Mongoose Relationships](./08-Relations/README.md)
 
 ### Sprint 3
-* [Authentication and Authorization](./09-Auth/README.md)
-* [OAuth](./09-Auth/README.md)
-* PSC
-* [Deployment on AWS](./11-Deployment/README.md)
+* [Authentication and Authorization](./10-Auth-Passportjs/README.md)
+* [PSC & Deployment](./11-PSC/README.md)

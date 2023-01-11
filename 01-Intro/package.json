@@ -1,0 +1,15 @@
+{
+  "name": "01-intro",
+  "version": "1.0.0",
+  "description": "Node.js is JS runtime engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
+  }
+}

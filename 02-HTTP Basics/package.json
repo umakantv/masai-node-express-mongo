@@ -1,0 +1,12 @@
+{
+  "name": "02-http-basics",
+  "version": "1.0.0",
+  "description": "## What is server, what is client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -40,9 +40,22 @@ const server = http.createServer(async (req, res) => {
 
         // const data = fs.readFileSync('./' + fileName);
 
-        const data = await fsPromises.readFile('./' + fileName)
+        fs.readFile('./' + fileName, (err, data) => {
+            if (err) {
+                res.writeHead(500);
+                return res.end('Unexpected error');
+            }
+            return res.end(data.toString());
+        })
 
-        return res.end(data)
+        try {
+            const data = await fsPromises.readFile('./' + fileName)
+
+            return res.end(data)
+        } catch(err) {
+            return res.end('Unexpexted error')
+        }
+
     }
 
 

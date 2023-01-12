@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Server in Node.js</title>
+</head>
+<body>
+
+    <h1>index.js</h1>
+    <pre>
+
+const http = require('http')
+const fs = require('fs')
+const { fibonacci } = require('./math')
+
+const server = http.createServer((req, res) => {
+    // req: Request Object - useful properties and functions related to request
+    // res: Response Object - 
+    
+    const path = req.url;
+    const method = req.method;
+
+    console.log(new Date(), method, path);
+
+    if (path.includes('fibonacci') && method === 'GET') {
+        const n = parseInt(path.split('/').pop());
+
+        return res.end(JSON.stringify({
+            data: fibonacci(n)
+        }))
+    } else if (path.includes('chunked') && method === 'GET') {
+
+        res.write('First Chunk\n')
+        res.write('Second Chunk\n')
+        res.write('Third Chunk which is very huge\n')
+        return res.end('Last Chunk')
+
+    } else if (path.includes('file') && method === 'GET') {
+        
+        const fileName = path.split('/').pop();
+
+        const data = fs.readFileSync('./' + fileName);
+
+        return res.end(data)
+
+
+    }
+
+
+    // Write headers to the response
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+
+    // end the request with text data
+    res.end(JSON.stringify({
+        data: 'Hello World!',
+    }));
+})
+
+server.listen(3030) // port 
+console.log('Server is listening on http://localhost:3030')
+    </pre>
+</body>
+</html>

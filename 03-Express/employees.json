@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Mukesh Yadav",
+        "designation": "Software Engineer",
+        "date_of_joining": "2020-12-04"
+    },
+    {
+        "id": 2,
+        "name": "Tamanna Sharma",
+        "designation": "HR",
+        "date_of_joining": "2022-11-04"
+    },
+    {
+        "id": 4,
+        "name": "Naman Goyal",
+        "designation": "Operations Head",
+        "date_of_joining": "2017-12-04"
+    },
+    {
+        "name": "Jyoti Mishra",
+        "designation": "Product Manager",
+        "date_of_joining": "2022-06-06",
+        "id": 5
+    }
+]

@@ -5,19 +5,19 @@ This repository contains source code for lectures from Backend class at Masai.
 ## Unit 6
 ### Sprint 1
 
-* [Introduction to Nodejs](./01-Intro/README.md)
-* [HTTP Server & Introduction to Express](./02-HTTP%20Basics/README.md)
-* [Express Intro](./03-Express/README.md)
-* [Express Middlewares, Request Handlers and Validations](./04-Middlewares_ecosystem/README.md)
+* [Introduction to Nodejs](./01-Intro)
+* [HTTP Server & Introduction to Express](./02-HTTP%20Basics)
+* [Express Intro](./03-Express)
+* [Express Middlewares, Request Handlers and Validations](./04-Express-Middlewares)
 
 ### Sprint 2
-* [Introduction to MongoDB](./05-Databases-Mongo-Intro/README.md)
-* [MongoDB Advanced and Operations](./06-MongoDB%20CRUD%20and%20Operators/README.md)
-* [Mongoose, NodeJS CRUD APIs](./07-Mongoose/README.md)
-* [Mongoose Relationships](./08-Relationships/README.md)
+* [Introduction to MongoDB](./05-DB-Mongo-Intro)
+* [MongoDB Advanced and Operations](./06-MongoDB%20CRUD%20and%20Operators)
+* [Mongoose, NodeJS CRUD APIs](./07-Mongoose)
+* [Mongoose Relationships](./08-Relationships)
 
 ### Sprint 3
-* [Authentication and Authorization](./09-Auth/README.md)
-* [OAuth](./09-Auth/README.md)
+* [Authentication and Authorization](./09-Auth)
+* [OAuth](./09-Auth)
 * PSC
-* [Deployment on AWS](./11-Deployment/README.md)
+* [Deployment on AWS](./11-Deployment)

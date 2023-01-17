@@ -2,6 +2,7 @@
 # MongoDB Advanced Operations
 
 - [MongoDB Advanced Operations](#mongodb-advanced-operations)
+  - [Download Tools](#download-tools)
   - [MongoDB Commands](#mongodb-commands)
     - [Import Data](#import-data)
     - [Show Databases](#show-databases)
@@ -24,6 +25,12 @@
     - [Element Operators](#element-operators)
     - [Evaluation Operators](#evaluation-operators)
 
+
+## Download Tools
+
+https://www.mongodb.com/try/download/database-tools
+
+Copy the contents of bin folder from download files into the bin folder for MongoDb Program Files.
 
 ## MongoDB Commands
 
@@ -98,21 +105,21 @@ db.users.insertMany([
 ### Find Documents in a collection
 
 ```js
-db.lectures.find()
+db.users.find()
 
-db.lectures.find({ title: "MongoDB" })
+db.users.find({ name: "Vikas Yadav" })
 
-db.lectures.findOne({ _id: ObjectId("6399f881d17280baeb06c26f") })
+db.users.findOne({ _id: ObjectId("6399f881d17280baeb06c26f") })
 ```
 
 ### Update Document in a collection
 
 ```js
 
-db.lectures.updateOne({ _id: ObjectId("6399f9efd17280baeb06c270") }, {$set: { title: 'Updated 2'}})
+db.users.updateOne({ _id: ObjectId("6399f9efd17280baeb06c270") }, {$set: { title: 'Updated 2'}})
 
 db.users.updateMany(
-    {  
+    {
         age: 20,
     }, 
     {
@@ -129,9 +136,9 @@ db.users.updateMany(
 
 ```js
 
-db.user.findOneAndDelete()
+db.users.findOneAndDelete()
 
-db.user.deleteMany({ name: 'Vikas Yadav' })
+db.users.deleteMany({ name: 'Vikas Yadav' })
 ```
 
 ## More Functions
@@ -166,7 +173,7 @@ db.users.countDocuments({ shirt_size: 'XL' })
 
 ```js
 
-db.user.find({
+db.users.find({
     field_name1 : {
         operator1 : value1,
         operator2 : value2,
@@ -181,10 +188,10 @@ db.user.find({
 
 ### Comparison Operators
 
-'<', '>', '<=', '>=', $ne, $eq
+$lt, $gt, $lte, $gte, $ne, $eq
 
 ```js
-db.user.find({
+db.users.find({
     name: {
         $lt: 'E', // '<'
         $gt: 'D', // '>'
@@ -218,7 +225,7 @@ db.users.find({
 
 Used to combine different conditions  
 
-AND, OR, NOT, NOR
+and, or, not, nor
 
 ```js
 
@@ -253,7 +260,6 @@ db.users.find({
             },
         },
         {
-
             age: {
                 $nin: [30, 31, 32]
             }
@@ -305,7 +311,7 @@ db.users.find({
 $all, $size, $elemMatch
 
 ```js
-
+// All input values should be present in the value array
 db.users.find({
     friends: {
         $all: ['Ross', 'Chandler'] // 

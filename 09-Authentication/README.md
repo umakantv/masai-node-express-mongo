@@ -1,6 +1,16 @@
 
 # Authentication
 
+## Development Setup Instructions
+
+Env file is not committed to version control (github).
+For production only lead or owner of the application have access to production `.env` file.
+
+```env
+JWT_SECRET = 'any secret you want to use'
+
+```
+
 Drawing Board: https://excalidraw.com/#json=0mBXae5jO-rG5QT6Av7P9,wl-Xl-_OE6fHAIVb9mjFnA
 
 Sessions and JWT Tokens

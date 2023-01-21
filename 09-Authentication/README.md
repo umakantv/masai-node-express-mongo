@@ -60,12 +60,12 @@ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI
 
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" -> lissy93
 
-1. GET /user/loggedInUser
+1. GET /auth/loggedInUser
    * `token` -> if this token in request is valid -> Server will give user details
    * `token` -> if this is invalid -> Server will give error message
    * If no token token is present then Server will say not logged in
-2. POST /user/login -> `token`
-3. POST /user/register
+2. POST /auth/login -> `token`
+3. POST /auth/register
 4. POST /post 
    * if `token` is present in req header, then server will identify the logged in user and it will store `author` details according to the token
 

@@ -91,7 +91,7 @@ async function login(req, res) {
 
 async function signinWithGitub(req, res) {
     try {
-
+        return res.status(404).send('Not yet implmented')
     } catch(err) {
         return res.status(500).send({
             error: 'Something went wrong'

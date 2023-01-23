@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const connectDatabase = require('./database/connectDatabase');
 const authRouter = require('./routes/auth');
@@ -11,13 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-
-function logRequest(req, res, next) {
-    next();
-    console.log(new Date(), req.method, req.url); // 1
-}
-
-app.use(logRequest);
+app.use(morgan('tiny'));
 
 app.get('/hello', (req, res, next) => {
 
@@ -26,8 +21,8 @@ app.get('/hello', (req, res, next) => {
     next();
 })
 
-app.use('/auth', authRouter);
-app.use('/post', postRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/post', postRouter);
 
 app.use('/', express.static('static'));
 

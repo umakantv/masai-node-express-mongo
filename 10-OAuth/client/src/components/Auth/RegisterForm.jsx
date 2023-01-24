@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import DialogContent from "@mui/material/DialogContent";
 import { registerApi } from "../../api/user";
+import {toast} from "react-toastify";
 
 export default function RegisterForm({ setFormType }) {
   const [name, setName] = useState("Umakant Vashishta");
@@ -10,7 +11,13 @@ export default function RegisterForm({ setFormType }) {
   const [password, setPassword] = useState("password");
 
   const register = () => {
-    registerApi(name, email, password).then(() => setFormType("login"));
+    registerApi(name, email, password)
+    .then(() => setFormType("login"))
+    .catch(() => {
+      toast('Sign Up didn\'t work', {
+        type: 'error'
+      })
+    });
   };
 
   return (

@@ -12,17 +12,17 @@ function App() {
     <ToastContainer />
     <AuthContextProvider>
       <Router>
-      <div className="App">
-        <Login />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<DummyLayout />}>
-              <Route path='github-signin' element={<GithubSignin />} />
-            </Route>
+        <div className="App">
+          <Login />
+          <Layout>
+            <Routes>
+              <Route path="/" element={<DummyLayout />}>
+                <Route path='github-signin' element={<GithubSignin />} />
+              </Route>
 
-          </Routes>
-        </Layout>
-      </div>
+            </Routes>
+          </Layout>
+        </div>
       </Router>
     </AuthContextProvider>
     </>

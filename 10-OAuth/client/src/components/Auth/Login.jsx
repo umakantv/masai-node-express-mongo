@@ -9,6 +9,7 @@ import AuthContext from "../../contexts/auth";
 import Divider from "@mui/material/Divider";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import config from "../../config";
 
 export default function Login() {
   const { showLoginForm, setShowLoginForm } = useContext(AuthContext);
@@ -43,7 +44,7 @@ export default function Login() {
             >
               {formType === "login" ? "Sign Up" : "Login"}
             </Button>
-            <a href="https://github.com/login/oauth/authorize?client_id=e4e42780cb1d75ff47e1">
+            <a href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_OAUTH_CLIENT_ID}`}>
               <Button>Login With Github</Button>
             </a>
           </DialogActions>

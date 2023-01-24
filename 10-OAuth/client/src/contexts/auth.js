@@ -25,7 +25,7 @@ export function AuthContextProvider({children}) {
             setShowLoginForm(false);
         })
         .catch(err => {
-            toast(err.response.data.error, {
+            toast('Login failed', {
                 type: 'error'
             })
         });

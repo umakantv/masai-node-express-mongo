@@ -15,24 +15,24 @@ async function auth(req, res, next) {
 
             try {
                 jwt.verify(token, config.JWT_SECRET_KEY);
+    
+                let user = jwt.decode(token);
+    
+                user = await User.findById(user._id);
+    
+                user = user.toJSON();
+    
+                delete user.password;
+    
+                // Modify the request object to contain the authenticated user
+                req.user = user;
+    
+                next();
             } catch(err) {
                 return res.status(401).send({
                     message: 'Invalid token provided'
                 })
             }
-
-            let user = jwt.decode(token);
-
-            user = await User.findById(user._id);
-
-            user = user.toJSON();
-
-            delete user.password;
-
-            // Modify the request object to contain the authenticated user
-            req.user = user;
-
-            next();
 
         } else {
             return res.status(401).send({

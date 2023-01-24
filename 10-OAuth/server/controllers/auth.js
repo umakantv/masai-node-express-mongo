@@ -1,6 +1,7 @@
 const { User } = require("../database/User")
 const jwt = require('jsonwebtoken');
 const config = require("../config/config");
+const axios = require('axios')
 
 function generateToken(user) {
     const { _id, name, email, image} = user;
@@ -16,6 +17,12 @@ async function register(req, res) {
         const {
             name, email, password
         } = req.body;
+
+        if (!name || !email || !password) {
+            return res.status(400).send({
+                error: 'Incomplete data'
+            })
+        }
 
         let user = await User.findOne({
             email
@@ -91,8 +98,72 @@ async function login(req, res) {
 
 async function signinWithGitub(req, res) {
     try {
-        return res.status(404).send('Not yet implmented')
+        
+        const code = req.params.code;
+
+        // exchange the code with access token
+        const url = `https://github.com/login/oauth/access_token`
+
+        let response = await axios.post(url, null, {
+            params: {
+                client_id: config.GITHUB_OAUTH_CLIENT_ID,
+                client_secret: config.GITHUB_OAUTH_CLIENT_SECRET,
+                code: code
+            },
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
+
+        let accessToken = response.data.access_token;
+        if (!accessToken) {
+            console.log(response.data);
+            throw new Error('Something went wrong')
+        }
+
+        let url2 = 'https://api.github.com/user';
+
+        response = await axios.get(url2, {
+            headers: {
+                'authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        let user = response.data;
+
+        let existingUser = await User.find({
+            signinMethod: 'github-oauth',
+            githubUsername: user.login
+        });
+
+        if (!existingUser) {
+            existingUser = await User.create({
+                name: user.name,
+                email: user.email,
+                image: user.avatar_url,
+                signinMethod: 'github-oauth',
+                githubUsername: user.login
+            });
+        }
+
+        // Create JWT token
+        const token = generateToken(existingUser);
+        const { _id, name, image, email } = existingUser;
+
+        return res.send({
+            message: 'Login with github successful',
+            data: {
+                token,
+                user: {
+                    _id, name, email, image
+                }
+            }
+        })
+
+
     } catch(err) {
+
+        console.error(err);
         return res.status(500).send({
             error: 'Something went wrong'
         })

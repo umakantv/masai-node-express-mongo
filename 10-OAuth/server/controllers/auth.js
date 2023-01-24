@@ -131,7 +131,7 @@ async function signinWithGitub(req, res) {
 
         let user = response.data;
 
-        let existingUser = await User.find({
+        let existingUser = await User.findOne({
             signinMethod: 'github-oauth',
             githubUsername: user.login
         });

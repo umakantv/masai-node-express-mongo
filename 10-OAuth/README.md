@@ -42,5 +42,8 @@ Github Oauth
 
 https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
 
+https://developers.google.com/identity/protocols/oauth2
 
 ![](https://www.figma.com/file/Be0D3XKVIL5LpKH5csYtCu/User-Auth-Flow?node-id=799%3A145&t=f8rEtnXKThtM8MbJ-4)
+
+

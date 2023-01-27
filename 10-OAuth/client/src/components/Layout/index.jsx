@@ -58,6 +58,7 @@ export default function Layout({ children }) {
             <Stack direction="row" spacing={2}>
               {user ? (
                 <>
+                  <Link to={`/create`}><Button variant="outlined">Create Post</Button></Link>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt={user.name} src={user.image} />
                   </IconButton>

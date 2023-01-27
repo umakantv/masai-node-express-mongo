@@ -137,6 +137,7 @@ async function signinWithGitub(req, res) {
         });
 
         if (!existingUser) {
+            // First time user is signing in with github
             existingUser = await User.create({
                 name: user.name,
                 email: user.email,

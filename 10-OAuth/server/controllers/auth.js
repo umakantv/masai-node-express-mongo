@@ -2,6 +2,7 @@ const { User } = require("../database/User")
 const jwt = require('jsonwebtoken');
 const config = require("../config/config");
 const axios = require('axios')
+const brcypt = require('bcryptjs');
 
 function generateToken(user) {
     const { _id, name, email, image} = user;
@@ -14,7 +15,7 @@ function generateToken(user) {
 
 async function register(req, res) {
     try {
-        const {
+        let {
             name, email, password
         } = req.body;
 
@@ -34,10 +35,12 @@ async function register(req, res) {
             })
         }
 
+        password = brcypt.hashSync(password);
+
         user = await User.create({
             name, email, 
             signinMethod: 'email-password',
-            password // TODO: change this to encrypted password
+            password
         });
 
         return res.send({
@@ -68,7 +71,7 @@ async function login(req, res) {
             })
         }
 
-        if (user.password !== password) { // TODO: to check encrypted value
+        if (brcypt.compareSync(password, user.password)) {
             return res.status(400).send({
                 error: 'Wrong password'
             })

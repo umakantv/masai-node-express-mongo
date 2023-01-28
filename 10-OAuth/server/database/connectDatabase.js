@@ -1,9 +1,10 @@
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const config = require('../config/config');
 
 async function connectDatabase() {
 
-    const result = await mongoose.connect('mongodb://127.0.0.1:27017/auth-example');
+    const result = await mongoose.connect(config.DB_CONNECTION_URL);
 
     return result;
 }

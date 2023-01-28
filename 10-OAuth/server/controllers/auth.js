@@ -71,7 +71,7 @@ async function login(req, res) {
             })
         }
 
-        if (brcypt.compareSync(password, user.password)) {
+        if (!brcypt.compareSync(password, user.password)) {
             return res.status(400).send({
                 error: 'Wrong password'
             })

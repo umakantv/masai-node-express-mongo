@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Arun Verma",
+    "designation": "Director of Engineering",
+    "gender": "male"
+  },
+  {
+    "id": 2,
+    "name": "Shruti Verma",
+    "designation": "Vice President",
+    "gender": "female"
+  },
+  {
+    "name": "Shreya Bansal",
+    "designation": "Technical Progam Manager",
+    "gender": "female",
+    "id": 4
+  },
+  {
+    "name": "Shrey Bansal",
+    "designation": "Progam Manager",
+    "gender": "male",
+    "id": 5
+  },
+  {
+    "name": "Varun Kumar",
+    "designation": "Staff Engineer",
+    "gender": "male",
+    "id": 6
+  }
+]

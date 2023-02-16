@@ -1,6 +1,8 @@
 
 # HTTP Basics
 
+Board: https://excalidraw.com/#json=9O5nOuBQ_4D7dqrw112mc,LjDB8SbUf_wiBvMth3gwKw
+
 ## What happens when we send a request from browser?
 
 ## What is HTTP?

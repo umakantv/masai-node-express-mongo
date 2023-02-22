@@ -1,0 +1,12 @@
+{
+  "options": {},
+  "indexes": [
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "_id": { "$numberInt": "1" } },
+      "name": "_id_",
+      "ns": "learn_mongo.users"
+    }
+  ],
+  "uuid": "c60b877dd3854748890528f64c9131e6"
+}

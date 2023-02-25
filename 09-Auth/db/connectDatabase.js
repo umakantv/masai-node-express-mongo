@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const config = require('../config');
 
 // Connect to the db
 
@@ -6,7 +7,7 @@ async function connectDatabase() {
 
     try {
 
-        await mongoose.connect('mongodb://127.0.0.1:27017/employees');
+        await mongoose.connect(config.DB_CONNECTION_URL);
     
         console.log('Connected to database')
 

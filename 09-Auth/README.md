@@ -1,6 +1,8 @@
 
 # Authentication
 
+Board Link: https://excalidraw.com/#json=-FOBCQ6hr3G9hAqsmVVZU,P8kE4bz_OcQXfMfoSGD_nQ
+
 ## SETUP
 
 Create a `.env` file with these variable

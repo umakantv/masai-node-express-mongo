@@ -6,6 +6,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    signinMethod: {
+        type: String,
+        default: 'email-password',
+    }, // email-password, github
+    githubUsername: String,
     email: String,
     password: String,
     gender: String,

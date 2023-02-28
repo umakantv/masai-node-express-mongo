@@ -79,9 +79,40 @@ async function getUserById(id) {
     return user;
 }
 
+async function signinWithGithub({
+    name, email, avatar_url, login
+}) {
+
+    let user = await User.findOne({
+        githubUsername: login,
+        signinMethod: 'github'
+    });
+
+    if (!user) {
+        // If the user is not present in the database - the first time the user signs in using github
+        user = await User.create({
+            signinMethod: 'github',
+            githubUsername: login,
+            name,
+            email,
+            image: avatar_url
+        });
+    }
+
+    user = user.toJSON();
+
+    delete user.password;
+
+    return {
+        token: generateToken(user),
+        user,
+    }
+}
+
 module.exports = {
     register,
     login,
     verifyToken,
     getUserById,
+    signinWithGithub,
 }

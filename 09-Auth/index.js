@@ -1,8 +1,6 @@
 
 require('dotenv').config();
 
-console.log(process.env.JWT_SECRET);
-
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -15,6 +13,7 @@ const app = express();
 // Apply middleware functions
 app.use(express.json()); // Middleware defined by express to convert req body into json object
 
+app.use(express.static('static'));
 // app.use(logRequest);
 app.use(morgan('tiny'));
 app.use(cors());

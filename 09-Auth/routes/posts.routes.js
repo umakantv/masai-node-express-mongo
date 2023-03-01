@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { fetchPosts, addPost } = require('../controllers/posts.controllers');
+const { fetchPosts, addPost, getPost } = require('../controllers/posts.controllers');
 const authMiddleware = require('../middlewares/auth');
 
 const postRouter = express.Router();
@@ -49,6 +49,27 @@ postRouter.post('/', authMiddleware, async (req, res) => {
             data: post
         })
 
+
+    } catch(err) {
+        console.error(err);
+
+        return res.status(500).send({
+            error: 'Something went wrong'
+        })
+    }
+})
+
+postRouter.get('/:id', async (req, res) => {
+
+    try {
+
+        let {id} = req.params;
+
+        const post = await getPost(id);
+
+        return res.send({
+            data: post
+        })
 
     } catch(err) {
         console.error(err);

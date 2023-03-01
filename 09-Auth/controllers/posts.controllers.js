@@ -49,7 +49,18 @@ async function addPost({
     }
 }
 
+async function getPost(id) {
+    const post = await Post.findById(id);
+
+    if (!post) {
+        throw new Error('Post does not exist')
+    }
+
+    return post;
+}
+
 module.exports = {
     fetchPosts,
-    addPost
+    addPost,
+    getPost
 }

@@ -65,7 +65,7 @@ passport.use(
     new GithubStrategy(
             {
             clientID: '0cbca4f1f45ac3d6c3e8',
-            clientPassword: '9d6e26c687b3d34f08f39f307a3a3a21255037b3',
+            clientPassword: '9d6e26c687b3**********07a3a3a21255037b3',
             callbackURL: 'http://localhost:3000/github-signin',
             passReqToCallback: true,
         },

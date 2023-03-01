@@ -71,7 +71,7 @@ Github will provide:
 - Oauth Client Secret - Is a secret that should never be shared with Frontend
 
 Client ID: 0cbca4f1f45ac3d6c3e8
-Client Secret: 9d6e26c687b3d34f08f39f307a3a3a21255037b3
+Client Secret: 9d6e26c687b3d************f307a3a3a21255037b3
 
 ----
 

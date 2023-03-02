@@ -34,7 +34,7 @@ export default function BlogCard({ blog, ...rest }) {
               alignItems: "center",
             }}
           >
-            <CommentIcon fill="red" />
+            {/* <CommentIcon fill="red" /> */}
             {/* <Typography style={{ paddingLeft: 10 }} variant="h6">
               {blog.commentCount}
             </Typography> */}

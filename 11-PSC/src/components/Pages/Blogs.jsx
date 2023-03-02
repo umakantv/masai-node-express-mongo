@@ -9,17 +9,43 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import {toast} from "react-toastify";
 
 export default function Blogs() {
   // TODO: read the default values from URL query params
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
   const [sortBy, setSortBy] = useState("createdAt");
   // eslint-disable-next-line
   const [sortOrder, setSortOrder] = useState("desc");
   const [blogs, setBlogs] = useState([]);
   const [totalBlogs, setTotalBlogs] = useState(0);
+
+  useEffect(() => {
+    getBlogs(page, pageSize, search, sortBy, sortOrder)
+    .then(response => {
+      const {data: result} = response;
+
+      const {records, totalRecords} = result.data;
+
+      setBlogs(records)
+      setTotalBlogs(totalRecords)
+    })
+    .catch(() => {
+      toast('Something went wrong', {
+        type: 'error'
+      })
+    })
+  }, [page, pageSize, search, sortBy, sortOrder]);
+
+  function handleChangePage(event, page) {
+    setPage(page + 1);
+  }
+
+  function handleChangeRowsPerPage(event) {
+    setPageSize(event.target.value);
+  }
 
   return (
     <div>
@@ -71,9 +97,10 @@ export default function Blogs() {
             component="div"
             count={totalBlogs}
             page={page - 1} // this component takes starting page as 0, but take it as 1
-            // onPageChange={handleChangePage}
+            onPageChange={handleChangePage}
             rowsPerPage={pageSize}
-            // onRowsPerPageChange={handleChangeRowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[5, 10, 20, 50]}
           />
         </div>
       </div>

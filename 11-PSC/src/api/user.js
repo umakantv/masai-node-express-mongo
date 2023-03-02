@@ -16,7 +16,7 @@ export async function registerApi(name, email, password) {
 }
 
 export async function loginWithGithubApi(code) {
-  return axios.get(`/auth/github-signin/${code}`);
+  return axios.get(`/auth/signinWithGithub/${code}`);
 }
 
 export async function getLoggedInUser() {

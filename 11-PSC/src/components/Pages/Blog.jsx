@@ -77,7 +77,7 @@ export default function Blog() {
         </Card>
       </Grid>
       <Grid item sm={12} md={4}>
-        <AccountDetailsCard userId={user?._id} />
+        <AccountDetailsCard userId={user?.userId} />
       </Grid>
     </Grid>
   );

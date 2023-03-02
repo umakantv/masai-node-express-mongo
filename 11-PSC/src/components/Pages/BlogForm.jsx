@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import TextField from "@mui/material/TextField";
 import AuthContext from "../../contexts/auth";
 import { Typography } from "@mui/material";
+import { toast } from "react-toastify";
 
 export default function BlogForm() {
   const [title, setTitle] = useState("Your Awesome Post");
@@ -20,7 +21,14 @@ export default function BlogForm() {
   }
 
   const submit = () => {
-
+    addBlog(title, content)
+    .then(({data: result}) => {
+      window.location = `/blog/${result.data._id}`;
+    }).catch(() => {
+      toast('Something went wrong', {
+        type: 'error'
+      })
+    })
   };
 
   return (

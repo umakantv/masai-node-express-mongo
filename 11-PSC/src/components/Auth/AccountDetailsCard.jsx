@@ -7,6 +7,8 @@ import CardContent from "@mui/material/CardContent";
 import { getUser } from "../../api/user";
 
 export default function AccountDetailsCard({ userId }) {
+
+  console.log('User id', userId)
   const [user, setUser] = useState(null);
 
   const fetchUser = () => {
@@ -29,6 +31,7 @@ export default function AccountDetailsCard({ userId }) {
           <Avatar alt={user?.name} src={user?.image} />
           <Stack>
             <Typography variant="body1">{user?.name}</Typography>
+            {user.signinMethod === 'github' && <a target="_blank"  href={`https://github.com/${user.githubUsername}`}><Typography variant="body1">Github Profile</Typography></a>}
           </Stack>
         </Stack>
       </CardContent>

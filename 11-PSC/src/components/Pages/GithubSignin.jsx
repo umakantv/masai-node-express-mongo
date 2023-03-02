@@ -25,7 +25,7 @@ export default function GithubSignin() {
         toast('Error while logging you in with github', {
           type: 'error'
         })
-      });;
+      });
     }
   }, [code]);
 

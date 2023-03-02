@@ -7,8 +7,8 @@ import AuthContext from "../../contexts/auth";
 
 export default function LoginForm() {
   const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("umakantvashishtha@example.com");
+  const [password, setPassword] = useState("password");
 
   return (
     <div>
@@ -16,7 +16,7 @@ export default function LoginForm() {
         <TextField
           autoFocus
           margin="dense"
-          id="name"
+          id="email"
           label="Email Address"
           type="email"
           fullWidth

@@ -13,7 +13,42 @@ const AuthContext = React.createContext({
 
 export function AuthContextProvider({children}) {
 
-    return <AuthContext.Provider value={{}}>
+    const [showLoginForm, setShowLoginForm] = useState(false);
+    const [user, setUser] = useState(null);
+
+    async function login(email, password) {
+        loginApi(email, password)
+        .then(response => {
+            const {data: result} = response;
+
+            const {token, user} = result.data;
+
+            localStorage.setItem('auth-token', token);
+            setShowLoginForm(false);
+        })
+        .catch((err) => toast('Something went wrong', {
+            type: 'error'
+        }))
+    }
+
+    useEffect(() => {
+        getLoggedInUser()
+        .then(response => {
+            const {data: result} = response;
+
+            setUser(result.data);
+        })
+        .catch(() => {
+            console.log('User is probably not logged in')
+        })
+    }, [showLoginForm])
+
+    return <AuthContext.Provider value={{
+        showLoginForm,
+        setShowLoginForm,
+        login,
+        user, setUser
+    }}>
         {children}
     </AuthContext.Provider>
 }

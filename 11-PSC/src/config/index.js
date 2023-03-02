@@ -1,6 +1,6 @@
 const config = {
   API_BASE_URL: process.env.REACT_APP_API_BASE_URL,
-  APP_NAME: process.env.REACT_APP_APP_NAME,
+  APP_NAME: 'PT WEB 08 B',
   GITHUB_OAUTH_CLIENT_ID: process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID,
 };
 

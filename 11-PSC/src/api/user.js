@@ -1,7 +1,7 @@
 import axios from ".";
 
 export async function loginApi(email, password) {
-  return axios.post("/auth/login", {
+  return axios.post("/auth/login", { // http://localhost:3001/api/auth/login
     email,
     password,
   });

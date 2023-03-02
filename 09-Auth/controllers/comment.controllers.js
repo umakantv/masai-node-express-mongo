@@ -4,6 +4,8 @@ const Post = require("../db/Post.model");
 async function getCommentsByPostId(postId) {
     const comments = await Comment.find({
         'post.postId': postId
+    }).sort({
+        createdAt: -1
     })
 
     return comments;

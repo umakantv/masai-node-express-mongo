@@ -8,13 +8,13 @@ const postRouter = express.Router();
 postRouter.get('/', async (req, res) => {
 
     try {
-        let {page = 1, count = 10, search = ''} = req.query;
+        let {page = 1, pageSize = 10, search = ''} = req.query;
 
         page = parseInt(page);
-        count = parseInt(count);
+        pageSize = parseInt(pageSize);
 
         const {posts, totalPosts} = await fetchPosts({
-            page, count, search
+            page, pageSize, search
         });
 
         return res.send({

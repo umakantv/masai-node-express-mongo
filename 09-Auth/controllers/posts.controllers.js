@@ -2,7 +2,7 @@ const Post = require("../db/Post.model");
 const User = require("../db/User.model");
 
 async function fetchPosts({
-    page, count, search
+    page, pageSize, search
 }) {
 
     const totalPosts = await Post.countDocuments({
@@ -11,13 +11,13 @@ async function fetchPosts({
         }
     });
 
-    const skip = (page - 1) * count; // count = 10, page = 4, skip = 30
+    const skip = (page - 1) * pageSize; // pageSize = 10, page = 4, skip = 30
 
     const posts = await Post.find({
         title: {
             $regex: `${search}`
         }
-    }).limit(count).skip(skip);
+    }).limit(pageSize).skip(skip);
 
     return {
         posts,

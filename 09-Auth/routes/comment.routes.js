@@ -27,7 +27,6 @@ commentRouter.get('/:postId', async (req, res) => {
 })
 
 commentRouter.post('/:postId', authMiddleware, async (req, res) => {
-    
     try {
         const {postId} = req.params;
 
@@ -36,7 +35,7 @@ commentRouter.post('/:postId', authMiddleware, async (req, res) => {
         const comment = await addCommentForPost({
             content,
             postId,
-            user: req.user,
+            user: req.loggedInUser,
         });
 
         return res.send({

@@ -43,10 +43,16 @@ export function AuthContextProvider({children}) {
         })
     }, [showLoginForm])
 
+    function logout() {
+        localStorage.removeItem('auth-token')
+        setUser(null);
+        setShowLoginForm(true);
+    }
+
     return <AuthContext.Provider value={{
         showLoginForm,
         setShowLoginForm,
-        login,
+        login, logout,
         user, setUser
     }}>
         {children}

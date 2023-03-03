@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const { faker } = require('@faker-js/faker');
 const connectDatabase = require('../db/connectDatabase');
 const User = require('../db/User.model');

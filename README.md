@@ -2,7 +2,7 @@
 
 This repository contains source code for lectures from Backend class at Masai. 
 
-## Unit 6
+## Unit 7
 ### Sprint 1
 
 * [Introduction to Nodejs](./01-Intro/README.md)

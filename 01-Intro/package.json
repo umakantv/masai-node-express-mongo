@@ -1,0 +1,16 @@
+{
+  "name": "01-intro",
+  "version": "1.0.0",
+  "description": "Ryan Dahl - Created Nodejs",
+  "main": "countCharacters.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0"
+  },
+  "type": "module"
+}

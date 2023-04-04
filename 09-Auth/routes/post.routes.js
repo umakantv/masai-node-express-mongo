@@ -1,6 +1,7 @@
 
 const express = require('express');
 const { addPost, getAllPosts, deletePostById } = require('../controllers/post.controller');
+const auth = require('../middlewares/auth');
 
 const postRouter = express.Router()
 
@@ -34,9 +35,17 @@ postRouter.get('/', async (req, res) => {
 })
 
 // Only the logged in user should be allowed to add the post
-postRouter.post('/', async (req, res) => {
+postRouter.post('/', auth, async (req, res) => {
     try {
         const data = req.body;
+
+        const user = req.user;
+
+        data.author = {
+            userId: user._id,
+            name: user.name,
+            image: user.image
+        }
 
         const post = await addPost(data);
 
@@ -69,7 +78,7 @@ postRouter.delete('/:id', async (req, res) => {
         const id = req.params.id
 
         const post = await deletePostById(id);
-        
+
         return res.send({
             data: post
         });

@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { register, login } = require('../controllers/auth.controller');
+const { register, login, githubSignin } = require('../controllers/auth.controller');
 const auth = require('../middlewares/auth');
 
 const authRouter = express.Router()
@@ -22,7 +22,6 @@ authRouter.post('/register', async (req, res) => {
         })
     }
 })
-
 
 authRouter.post('/login', async (req, res) => {
     try {
@@ -56,6 +55,26 @@ authRouter.get('/loggedInUser', auth, async (req, res) => {
 
     } catch(err) {
         console.error(err.message);
+
+        return res.status(500).send({
+            error: 'Something went wrong'
+        })
+    }
+})
+
+authRouter.get('/github-signin', async (req, res) => {
+    try {
+
+        const code = req.query.code;
+
+        const response = await githubSignin(code);
+
+        return res.send({
+            data: response
+        })
+
+    } catch(err) {
+        console.error(err);
 
         return res.status(500).send({
             error: 'Something went wrong'

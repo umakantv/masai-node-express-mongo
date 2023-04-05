@@ -1,4 +1,6 @@
 
+require('dotenv').config() // this will load your env secrets into process.env
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');

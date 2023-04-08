@@ -4,6 +4,7 @@ import { addBlog } from "../../api/blogs";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 import TextField from "@mui/material/TextField";
 import AuthContext from "../../contexts/auth";
@@ -20,7 +21,17 @@ export default function BlogForm() {
   }
 
   const submit = () => {
+    addBlog(title, content)
+    .then(response => {
+      const blog = response.data.data;
 
+      navigate(`/blog/${blog._id}`)
+    })
+    .catch(err => {
+      toast('Something went wrong in adding the post', {
+        type: 'error'
+      })
+    })
   };
 
   return (

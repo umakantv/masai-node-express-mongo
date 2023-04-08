@@ -14,12 +14,22 @@ export default function Blogs() {
   // TODO: read the default values from URL query params
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(3);
   const [sortBy, setSortBy] = useState("createdAt");
   // eslint-disable-next-line
   const [sortOrder, setSortOrder] = useState("desc");
   const [blogs, setBlogs] = useState([]);
   const [totalBlogs, setTotalBlogs] = useState(0);
+
+  useEffect(() => {
+    getBlogs(page, pageSize, search).then((response) => {
+      const { records, totalRecords } = response.data.data;
+
+      setBlogs(records);
+
+      setTotalBlogs(totalRecords);
+    });
+  }, [page, pageSize, search]);
 
   return (
     <div>
@@ -71,9 +81,15 @@ export default function Blogs() {
             component="div"
             count={totalBlogs}
             page={page - 1} // this component takes starting page as 0, but take it as 1
-            // onPageChange={handleChangePage}
+            onPageChange={(event, page) => {
+              setPage(page + 1);
+            }}
             rowsPerPage={pageSize}
-            // onRowsPerPageChange={handleChangeRowsPerPage}
+            onRowsPerPageChange={(event) => {
+              setPage(1);
+              setPageSize(Number(event.target.value))
+            }}
+            rowsPerPageOptions={[3, 5, 10, 15, 20]}
           />
         </div>
       </div>

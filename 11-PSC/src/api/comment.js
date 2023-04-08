@@ -1,11 +1,11 @@
 import axios from ".";
 
 export async function getCommentsByBlogId(id) {
-    return axios.get(`/comment/${id}`)
+    return axios.get(`/comments/${id}`)
 }
 
 export async function addComment(content, postId) {
-    return axios.post(`/comment/${postId}`, {
+    return axios.post(`/comments/${postId}`, {
         content
     })
 }

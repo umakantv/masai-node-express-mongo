@@ -24,5 +24,5 @@ export async function getLoggedInUser() {
 }
 
 export async function getUser(userId) {
-  return axios.get(`/user/${userId}`);
+  return axios.get(`/users/${userId}`);
 }

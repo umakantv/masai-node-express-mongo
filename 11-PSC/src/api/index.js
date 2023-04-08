@@ -9,6 +9,7 @@ const axios = Axios.create({
     },
 })
 
+// middleware - to attach the auth token header in the request
 axios.interceptors.request.use(function (config) {
 
     // Do something before request is sent

@@ -11,7 +11,16 @@ export default function RegisterForm({ setFormType }) {
   const [password, setPassword] = useState("password");
 
   const register = () => {
-    
+    registerApi(name, email, password)
+    .then(response => {
+      setFormType('login')
+    })
+    .catch(err => {
+      console.log(err.response)
+      toast('Something went wrong while signin up', {
+        type: 'error'
+      })
+    })
   };
 
   return (

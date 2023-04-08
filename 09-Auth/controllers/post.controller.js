@@ -25,7 +25,7 @@ async function updatePostById(id, data) {
 
 }
 
-async function deletePostById(id) {
+async function deletePostById(id, user) {
 
     const post = await Post.findByIdAndDelete(id);
 

@@ -62,10 +62,10 @@ authRouter.get('/loggedInUser', auth, async (req, res) => {
     }
 })
 
-authRouter.get('/github-signin', async (req, res) => {
+authRouter.get('/github-signin/:code', async (req, res) => {
     try {
 
-        const code = req.query.code;
+        const code = req.params.code;
 
         const response = await githubSignin(code);
 

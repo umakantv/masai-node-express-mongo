@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { getUserById } = require('../controllers/auth.controllers');
+const { getUserById } = require('../controllers/user.controllers');
 
 const userRouter = express.Router();
 
@@ -11,9 +11,16 @@ userRouter.get('/:userId', async (req, res) => {
 
         const user = await getUserById(userId);
 
-        return res.send({
-            data: user
-        });
+        if (user) {
+            return res.send({
+                data: user
+            });
+        } else {
+            return res.status(404).send({
+                message: 'User not found'
+            })
+        }
+
 
     } catch(err) {
         console.error(err);

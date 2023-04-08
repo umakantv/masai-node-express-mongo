@@ -64,6 +64,9 @@ postRouter.post('/', auth, async (req, res) => {
 postRouter.patch('/:id', (req, res) => {
     try {
 
+        return res.status(500).send({
+            message: 'Not Implemented'
+        })
     } catch(err) {
         console.error(err.message);
         return res.status(500).send({
@@ -72,12 +75,12 @@ postRouter.patch('/:id', (req, res) => {
     }
 })
 
-postRouter.delete('/:id', async (req, res) => {
+postRouter.delete('/:id', auth, async (req, res) => {
     try {
 
-        const id = req.params.id
+        const id = req.params.id;
 
-        const post = await deletePostById(id);
+        const post = await deletePostById(id, req.user);
 
         return res.send({
             data: post

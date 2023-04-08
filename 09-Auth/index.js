@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const postRouter = require('./routes/post.routes');
 const connectDatabase = require('./db/connectDatabase');
 const authRouter = require('./routes/auth.routes');
+const commentRouter = require('./routes/comment.routes');
+const userRouter = require('./routes/user.routes');
 
 const app = express()
 
@@ -14,8 +16,10 @@ app.use(morgan('tiny'))
 app.use(express.json()) // To read the req body as json
 app.use(cors())
 
-app.use('/posts', postRouter);
 app.use('/auth', authRouter);
+app.use('/users', userRouter);
+app.use('/posts', postRouter);
+app.use('/comments', commentRouter);
 
 app.get('/', (req, res) => {
     res.send({

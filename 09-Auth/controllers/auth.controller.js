@@ -2,6 +2,7 @@ const User = require("../db/user.model")
 const {faker} = require('@faker-js/faker')
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
+const bcrypt = require('bcryptjs')
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
@@ -30,7 +31,7 @@ async function register(name, email, password) {
     let user = await User.create({
         name,
         email,
-        password, // encrypt before storing in database
+        password: bcrypt.hashSync(password, 10), // encrypt before storing in database
         image: faker.internet.avatar(),
     })
 
@@ -51,7 +52,7 @@ async function login(email, password) {
         throw new Error('User does not exist with the given email')
     }
 
-    if (user.password !== password) {
+    if (!bcrypt.compareSync(password, user.password)) {
         throw new Error('Password is incorrect')
     }
 

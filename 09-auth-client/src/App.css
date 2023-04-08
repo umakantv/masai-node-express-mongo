@@ -5,12 +5,16 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  border-radius: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  /* .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  } */
+button.button {
+  padding: 6px 8px;
+  background-color: #474e5c;
+  border: 1px solid snow;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
 }
 
 .App-header {
@@ -26,13 +30,4 @@
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

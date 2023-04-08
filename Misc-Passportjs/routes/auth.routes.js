@@ -23,27 +23,6 @@ authRouter.post('/register', async (req, res) => {
     }
 })
 
-authRouter.post('/login', async (req, res) => {
-    try {
-        const data = req.body;
-
-        const {user, token} = await login(data.email, data.password);
-
-        return res.send({
-            data: {
-                token,
-                user
-            }
-        })
-
-    } catch(err) {
-        console.error(err.message);
-        return res.status(500).send({
-            error: err.message || 'Something went wrong'
-        })
-    }
-})
-
 authRouter.get('/loggedInUser', auth, async (req, res) => {
     try {
 

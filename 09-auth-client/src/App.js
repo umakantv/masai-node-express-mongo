@@ -56,7 +56,7 @@ function App() {
         <p>
           OAuth Demo with Github
         </p>
-        {user ? <button onClick={() => {
+        {user ? <button className='button' onClick={() => {
           localStorage.removeItem(AUTH_TOKEN_KEY);
           window.location = '/';
         }}>Logout</button> : <a

@@ -1,12 +1,33 @@
 const Post = require("../db/post.model")
 
+async function getPostById(id) {
+    return Post.findById(id);
+}
+
 async function getAllPosts({
-    page, pageSize, sortBy, sortByOrder
+    page, pageSize, search, sortBy, sortOrder
 }) {
 
-    const posts = await Post.find().limit(pageSize).skip((page - 1) * pageSize);
+    let searchOptions = {}
 
-    const postCount = await Post.countDocuments();
+    if (search) {
+        searchOptions = {
+            $text: {
+                $search: search
+            }
+        };
+    }
+
+    console.log(searchOptions, sortBy)
+
+    const posts = await Post.find(searchOptions)
+    .limit(pageSize)
+    .skip((page - 1) * pageSize)
+    .sort({
+        [sortBy]: sortOrder == 'asc' ? 1: -1
+    });
+
+    const postCount = await Post.countDocuments(searchOptions);
 
     return {
         posts, 
@@ -33,6 +54,7 @@ async function deletePostById(id, user) {
 }
 
 module.exports = {
+    getPostById,
     getAllPosts,
     addPost,
     updatePostById,

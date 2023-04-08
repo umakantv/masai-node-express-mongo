@@ -16,15 +16,21 @@ app.use(morgan('tiny'))
 app.use(express.json()) // To read the req body as json
 app.use(cors())
 
-app.use('/auth', authRouter);
-app.use('/users', userRouter);
-app.use('/posts', postRouter);
-app.use('/comments', commentRouter);
+app.use(express.static('public'));
+
+app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
+app.use('/api/posts', postRouter);
+app.use('/api/comments', commentRouter);
 
 app.get('/', (req, res) => {
     res.send({
         message: 'Hello World'
     })
+})
+
+app.get('/*', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
 })
 
 const port = 3001;

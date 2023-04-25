@@ -20,4 +20,4 @@ This repository contains source code for lectures from Backend class at Masai.
 * [Authentication and Authorization](./09-Auth/README.md)
 * [OAuth](./09-Auth/README.md)
 * PSC
-* [Deployment on AWS](./11-Deployment/README.md)
+* [Deployment on AWS](./12-Deployment/README.md)

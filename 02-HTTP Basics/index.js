@@ -1,9 +1,10 @@
 
 const http = require('http')
 const fs = require('fs');
+const fsPromise = require('fs/promises');
 const { fibonacci } = require('./fibonacci');
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
     // Request handler
     console.log('Request received');
 
@@ -17,9 +18,17 @@ const server = http.createServer((req, res) => {
 
         if (fs.existsSync(`./files/${fileName}`)) {
 
-            const fileContent = fs.readFileSync(`./files/${fileName}`)
+            // const fileContent = fs.readFileSync(`./files/${fileName}`)
 
-            res.write(fileContent);
+            let content = await fsPromise.readFile(`./files/${fileName}`)
+
+            // fs.createReadStream() // read data line by line
+
+            res.write(content);
+            // fs.readFile(`./files/${fileName}`, (err, data) => {
+                // res.write(fileContent);
+            // })
+
         } else {
             // send 404
             res.writeHead(404)

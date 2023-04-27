@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Rajiv Chauhan",
+    "designation": "HR Executive",
+    "gender": "male",
+    "date_of_joining": "2022-10-24",
+    "date_of_birth": "1995-02-04"
+  },
+  {
+    "id": 4,
+    "name": "Sanjeev Chauhan",
+    "designation": "Software Engineer",
+    "gender": "male",
+    "date_of_joining": "2022-10-24",
+    "date_of_birth": "1995-02-04"
+  },
+  {
+    "id": 5,
+    "name": "Preeti Verma",
+    "designation": "Product Designer",
+    "gender": "female",
+    "date_of_joining": "2022-10-24",
+    "date_of_birth": "1995-02-04"
+  }
+]

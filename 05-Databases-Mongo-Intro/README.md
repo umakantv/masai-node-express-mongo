@@ -1,6 +1,10 @@
 
 # Intro to mongodb
 
+
+https://www.mongodb.com/docs/manual/crud/
+
+
 ```
 show dbs
 use <db_name> // use pt-web-10

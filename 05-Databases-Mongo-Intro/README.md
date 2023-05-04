@@ -4,6 +4,8 @@
 
 https://www.mongodb.com/docs/manual/crud/
 
+[Drawing Link](https://excalidraw.com/#json=P3YuR4gjWqgb5RAR32tub,hgitt4xMCOGTpdDTetF74g)
+
 
 ```
 show dbs

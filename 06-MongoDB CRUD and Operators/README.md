@@ -177,6 +177,8 @@ db.students.find().sort({ shirt_size: 1, name: 1  }).limit(3).skip(2)
 
 ## MongoDB Operators
 
+https://www.mongodb.com/docs/manual/tutorial/query-documents/
+
 ```js
 
 db.students.find({
@@ -384,6 +386,8 @@ db.students.find({ graduated: { $exists: true, $type: 'bool' } })
 ### Evaluation Operators
 
 $mod, $regex, $text
+
+https://www.mongodb.com/docs/manual/core/index-text/
 
 ```js
 

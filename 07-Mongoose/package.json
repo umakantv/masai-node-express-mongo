@@ -1,0 +1,18 @@
+{
+  "name": "07-mongoose",
+  "version": "1.0.0",
+  "description": "Employee Management System (ERP Portal)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.0"
+  },
+  "type": "module"
+}

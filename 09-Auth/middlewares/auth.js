@@ -21,10 +21,16 @@ export async function getUserFromRequest(req, res, next) {
     
                 let user = await getUserById(decodedUser._id)
     
+                // Once we have identified the user
+                // We want to use the user info in the application logic
+                // so we add a new property in the request object
+                // for next functions to get the loggedInUser
                 req.loggedInUser = user;
     
                 next();
-    
+
+                // This is important because we want to send the response
+                // from the next function
                 return;
     
             } catch(err) {

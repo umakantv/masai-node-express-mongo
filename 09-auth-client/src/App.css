@@ -31,3 +31,10 @@ button.button {
 .App-link {
   color: #61dafb;
 }
+
+input, button {
+  padding: 6px 8px;
+  font-size: 16px;
+  margin-top: 10px;
+  min-width: 200px;
+}

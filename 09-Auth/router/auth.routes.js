@@ -1,6 +1,7 @@
 
 import express from 'express'
 import { login, register } from '../controllers/auth.controllers.js'
+import { getUserFromRequest } from '../middlewares/auth.js';
 
 const authRouter = express.Router();
 
@@ -39,7 +40,19 @@ authRouter.post('/login', async (req, res) => {
     }
 })
 
+authRouter.get('/loggedInUser', getUserFromRequest, async (req, res) => {
+    try {
+        let {loggedInUser} = req;
 
-authRouter.get('/loggedInUser', (req, res) => {})
+        return res.send({
+            data: loggedInUser
+        })
+
+    } catch(err) {
+        return res.status(500).send({
+            message: err.message
+        });
+    }
+})
 
 export default authRouter

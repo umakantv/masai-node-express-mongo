@@ -13,7 +13,11 @@ const AuthContext = React.createContext({
 
 export function AuthContextProvider({children}) {
 
-    return <AuthContext.Provider value={{}}>
+    const [showLoginForm, setShowLoginForm] = useState(false);
+
+    return <AuthContext.Provider value={{
+        showLoginForm, setShowLoginForm,
+    }}>
         {children}
     </AuthContext.Provider>
 }

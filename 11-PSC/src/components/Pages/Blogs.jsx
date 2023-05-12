@@ -71,9 +71,9 @@ export default function Blogs() {
             component="div"
             count={totalBlogs}
             page={page - 1} // this component takes starting page as 0, but take it as 1
-            onPageChange={handleChangePage}
+            // onPageChange={handleChangePage}
+            // onRowsPerPageChange={handleChangeRowsPerPage}
             rowsPerPage={pageSize}
-            onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </div>
       </div>

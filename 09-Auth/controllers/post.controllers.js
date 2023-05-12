@@ -13,3 +13,28 @@ export async function addPost(post, user) {
 
     return addedPost;
 }
+
+export async function getPostById(id) {
+    return PostModel.findById(id);
+}
+
+export async function getPosts({
+    page = 1, pageSize = 5, search = ""
+}) {
+
+    let totalPosts = await PostModel.countDocuments({
+        title: {
+            $regex: search
+        }
+    })
+
+    let posts = await PostModel.find({
+        title: {
+            $regex: search
+        }
+    }).limit(pageSize).skip((page - 1) * pageSize)
+
+    return {
+        totalPosts, posts
+    }
+}

@@ -12,6 +12,7 @@ export default function RegisterForm({ setFormType }) {
 
   const register = () => {
     
+    setFormType("login")
   };
 
   return (

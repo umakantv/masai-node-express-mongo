@@ -1,6 +1,6 @@
 
 import express from 'express'
-import { login, register } from '../controllers/auth.controllers.js'
+import { githubSignin, login, register } from '../controllers/auth.controllers.js'
 import { getUserFromRequest } from '../middlewares/auth.js';
 
 const authRouter = express.Router();
@@ -33,6 +33,23 @@ authRouter.post('/login', async (req, res) => {
         return res.send({
             data: {user, token}
         })
+    } catch(err) {
+        return res.status(500).send({
+            message: err.message
+        });
+    }
+})
+
+authRouter.get('/github-signin/:code', async (req, res) => {
+    try {
+        let code = req.params.code
+
+        let {token, user} = await githubSignin(code);
+
+        return res.send({
+            data: {user, token} // instead of user profile, we should generate and send auth token
+        })
+
     } catch(err) {
         return res.status(500).send({
             message: err.message

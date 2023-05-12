@@ -2,7 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from "react"
 import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
 
 const AUTH_TOKEN_KEY = 'auth-token';
 
@@ -10,27 +9,25 @@ function App() {
 
   const [user, setUser] = useState(null);
 
-  // let search = new URLSearchParams(window.location.search)
-  // let code = search.get('code');
+  let search = new URLSearchParams(window.location.search)
+  let code = search.get('code');
 
   let authToken = localStorage.getItem(AUTH_TOKEN_KEY)
 
-  // console.log(authToken);
+  useEffect(() => {
+    if (code) {
+      fetch(`http://localhost:3002/api/auth/github-signin/${code}`)
+      .then(res => res.json())
+      .then(result => {
+        // console.log(result);
+        const {token} = result.data;
+        localStorage.setItem(AUTH_TOKEN_KEY, token);
+        window.location = '/';
 
-  // useEffect(() => {
-  //   if (code) {
-  //     fetch(`http://localhost:3001/auth/github-signin?code=${code}`)
-  //     .then(res => res.json())
-  //     .then(result => {
-  //       console.log(result);
-  //       const {token} = result.data;
-  //       localStorage.setItem(AUTH_TOKEN_KEY, token);
-  //       window.location = '/';
+      })
+    }
 
-  //     })
-  //   }
-
-  // }, [code])
+  }, [code])
 
   useEffect(() => {
     if (authToken) {
@@ -70,15 +67,6 @@ function App() {
           </div> :
           <LoginForm />
         }
-        {/* {user ? <button className='button' onClick={() => {
-          localStorage.removeItem(AUTH_TOKEN_KEY);
-          window.location = '/';
-        }}>Logout</button> : <a
-          className="App-link"
-          href="https://github.com/login/oauth/authorize?client_id=a4aac465ef9ca7723a9a"
-        >
-          Sign-in with Github
-        </a>} */}
 
       </header>
     </div>

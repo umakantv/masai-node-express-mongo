@@ -33,7 +33,7 @@ const LoginForm = () => {
     return ( 
         <>
             {
-                form == "login" ?
+                form === "login" ?
                 <div>
                     <form onSubmit={(e) => {
                         e.preventDefault()
@@ -42,6 +42,10 @@ const LoginForm = () => {
                         <input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} /> <br />
                         <button className='button' onClick={submit}>Login</button> <br />
                     </form>
+                    <a className="App-link"
+                        href="https://github.com/login/oauth/authorize?client_id=36094d9c506d788d6b49">
+                        Sign-in with Github
+                    </a>
                     <h6 onClick={() => setForm('register')}>Register</h6>
                 </div> : 
                 <div>

@@ -5,6 +5,11 @@ const UserSchema = new Schema({
     gender: String,
     email: String,
     password: String,
+    authMode: {
+        type: String,
+        default: 'email',
+    }, // email, github, google, facebook
+    githubUsername: String,
     image: String,
 }, {
     timestamps: true,

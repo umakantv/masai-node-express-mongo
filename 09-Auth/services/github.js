@@ -15,7 +15,7 @@ export async function getAccessToken(code) {
         }
     })
 
-    console.log('Access token response', response.data)
+    // console.log('Access token response', response.data)
 
     return response.data.access_token;
 }
@@ -28,7 +28,7 @@ export async function getUserProfile(accessToken) {
         }
     })
 
-    console.log('User Profile response', response.data)
+    // console.log('User Profile response', response.data)
 
     return response.data;
 }

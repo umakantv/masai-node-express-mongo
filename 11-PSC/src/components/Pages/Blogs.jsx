@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getBlogs } from "../../api/blogs";
+import { getPosts } from "../../api/blogs";
 import BlogCard from "../Blogs/BlogCard";
 import TablePagination from "@mui/material/TablePagination";
 import TextField from "@mui/material/TextField";
@@ -20,6 +20,25 @@ export default function Blogs() {
   const [sortOrder, setSortOrder] = useState("desc");
   const [blogs, setBlogs] = useState([]);
   const [totalBlogs, setTotalBlogs] = useState(0);
+
+  const handleChangePage = (_, page) => {
+    setPage(page + 1);
+  }
+  const handleChangeRowsPerPage = (e) => {
+    let pageSize= e.target.value;
+
+    setPageSize(pageSize)
+  }
+
+  useEffect(() => {
+    getPosts(page, pageSize, search, sortBy, sortOrder)
+    .then(response => {
+      const {records, totalRecords} = response.data.data
+
+      setBlogs(records)
+      setTotalBlogs(totalRecords)
+    })
+  }, [page, pageSize, search, sortBy, sortOrder])
 
   return (
     <div>
@@ -70,9 +89,9 @@ export default function Blogs() {
           <TablePagination
             component="div"
             count={totalBlogs}
-            page={page - 1} // this component takes starting page as 0, but take it as 1
-            // onPageChange={handleChangePage}
-            // onRowsPerPageChange={handleChangeRowsPerPage}
+            page={page - 1} // this component takes starting page as 0, but we/api take it as 1
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
             rowsPerPage={pageSize}
           />
         </div>

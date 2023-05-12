@@ -12,7 +12,7 @@ export default function CommentCard({ comment }) {
         <CardActions
           style={{ padding: 0, marginBottom: 10, alignItems: "center" }}
         >
-          <AccountInfo user={comment.user} timestamp={comment.createdAt} />
+          <AccountInfo user={comment.author} timestamp={comment.createdAt} />
         </CardActions>
         <Typography
           variant="body1"
@@ -21,7 +21,7 @@ export default function CommentCard({ comment }) {
             whiteSpace: "pre-wrap",
           }}
         >
-          {comment.content} <br />
+          {comment.comment} <br />
         </Typography>
       </CardContent>
       <Divider />

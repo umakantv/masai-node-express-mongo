@@ -11,6 +11,12 @@ authRouter.post('/register', async (req, res) => {
 
         // validation: maybe we can check if name, email and password are present
 
+        if (!(data.name && data.email && data.password)) {
+            return res.status(400).send({
+                message: 'Name, email and password are required'
+            })
+        }
+
         const user = await register(data.name, data.email, data.password)
 
         return res.send({

@@ -4,11 +4,12 @@ import { getUserFromRequest } from '../middlewares/auth.js';
 
 const commentRouter = express.Router();
 
-commentRouter.post('/', getUserFromRequest, async (req, res) => {
+commentRouter.post('/:postId', getUserFromRequest, async (req, res) => {
     try {
-        const comment = req.body
+        const {comment} = req.body
+        const {postId} = req.params
 
-        if (!(comment.comment && comment.postId)) {
+        if (!comment) {
             return res.status(400).send({
                 message: 'Both comment and postId are required'
             })
@@ -16,7 +17,7 @@ commentRouter.post('/', getUserFromRequest, async (req, res) => {
 
         let {loggedInUser} = req
 
-        let addedComment = await addComment(comment, loggedInUser)
+        let addedComment = await addComment(postId, comment, loggedInUser)
 
         return res.send({
             data: addedComment

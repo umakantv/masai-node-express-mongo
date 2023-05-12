@@ -1,13 +1,14 @@
 import CommentModel from "../db/Comment.model.js";
 
-export async function addComment(comment, user) {
+export async function addComment(postId, comment, user) {
+    console.log("Loggedin User", user)
     let addedComment = await CommentModel.create({
-        comment: comment.comment,
-        postId: comment.postId,
+        comment: comment,
+        postId: postId,
         author: {
             userId: user._id,
             name: user.name,
-            iamge: user.image,
+            image: user.image,
         }
     })
 
@@ -17,5 +18,7 @@ export async function addComment(comment, user) {
 export async function getCommentsByPostId(postId) {
     return CommentModel.find({
         postId
+    }).sort({
+        createdAt: -1
     });
 }

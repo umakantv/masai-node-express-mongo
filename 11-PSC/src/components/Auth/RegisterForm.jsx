@@ -6,13 +6,25 @@ import { registerApi } from "../../api/user";
 import {toast} from "react-toastify";
 
 export default function RegisterForm({ setFormType }) {
-  const [name, setName] = useState("Umakant Vashishta");
+  const [name, setName] = useState("Umakant Vashishtha");
   const [email, setEmail] = useState("umakantvashishtha@example.com");
   const [password, setPassword] = useState("password");
 
   const register = () => {
+
+    registerApi(name, email, password)
+    .then(response => {
+      setFormType("login")
+      toast("Registered successfully", { type: 'success'})
+    })
+    .catch(err => {
+      console.error(err);
+      // Show error notification
+      toast(err?.response?.data?.message || "Something went wrong", {
+        type: 'error'
+      })
+    })
     
-    setFormType("login")
   };
 
   return (

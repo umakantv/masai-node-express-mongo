@@ -84,6 +84,7 @@ export default function Layout({ children }) {
                     <MenuItem
                       onClick={() => {
                         logout();
+                        handleCloseUserMenu();
                       }}
                     >
                       <Typography>Logout</Typography>

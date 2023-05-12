@@ -1,20 +1,20 @@
 import axios from ".";
 
-export async function getBlogs(
+export async function getPosts(
     page = 1, pageSize = 15, search = '', sortBy = 'createdAt', sortOrder = 'desc') {
-    return axios.get('/post', {
+    return axios.get('/posts', {
         params: {
             page, pageSize, search, sortBy, sortOrder
         }
     })
 }
 
-export async function addBlog(title, content) {
-    return axios.post('/post', {
+export async function addPost(title, content) {
+    return axios.post('/posts', {
         title, content
     })
 }
 
-export async function getBlogById(id) {
-    return axios.get(`/post/${id}`)
+export async function getPostById(id) {
+    return axios.get(`/posts/${id}`)
 }

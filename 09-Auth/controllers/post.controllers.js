@@ -19,7 +19,7 @@ export async function getPostById(id) {
 }
 
 export async function getPosts({
-    page = 1, pageSize = 5, search = ""
+    page = 1, pageSize = 5, search = "", sortBy = "createdAt", sortOrder = "desc"
 }) {
 
     let totalPosts = await PostModel.countDocuments({
@@ -32,6 +32,8 @@ export async function getPosts({
         title: {
             $regex: search
         }
+    }).sort({
+        [sortBy]: sortOrder == 'desc' ? -1 : 1,
     }).limit(pageSize).skip((page - 1) * pageSize)
 
     return {

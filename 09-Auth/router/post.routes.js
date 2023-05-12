@@ -1,5 +1,5 @@
 import express from 'express'
-import { addPost, getPostById } from '../controllers/post.controllers.js'
+import { addPost, getPostById, getPosts } from '../controllers/post.controllers.js'
 import { getUserFromRequest } from '../middlewares/auth.js';
 
 const postRouter = express.Router();
@@ -58,14 +58,15 @@ postRouter.get('/', async (req, res) => {
         let {
             page = 0,
             pageSize = 5,
-            search = ""
+            search = "",
+            sortBy = "createdAt", sortOrder = "desc"
         } = req.query
 
         page = parseInt(page)
         pageSize = parseInt(pageSize)
 
         let {posts, totalPosts} = await getPosts({
-            page, pageSize, search
+            page, pageSize, search, sortBy, sortOrder
         })
 
         return res.send({

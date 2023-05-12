@@ -7,12 +7,13 @@ import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 
-import { getBlogById } from "../../api/blogs";
+import { getPostById } from "../../api/blogs";
 import { addComment, getCommentsByBlogId } from "../../api/comment";
 import CommentCard from "../Blogs/CommentCard";
 import CommentForm from "../Blogs/CommentForm";
 import AccountInfo from "../Auth/AccountInfo";
 import AccountDetailsCard from "../Auth/AccountDetailsCard";
+import { toast } from "react-toastify";
 
 export default function Blog() {
   const [blog, setBlog] = useState(null);
@@ -30,7 +31,7 @@ export default function Blog() {
   };
 
   useEffect(() => {
-    getBlogById(id).then((response) => {
+    getPostById(id).then((response) => {
       const blog = response.data.data;
       setBlog(blog);
     });
@@ -66,9 +67,14 @@ export default function Blog() {
           </CardContent>
           <CommentForm
             submit={async (content) => {
-              await addComment(content, id);
+              try {
+                await addComment(content, id);
+                toast("Comment added successfully", { type: "success"})
+                return fetchComments();
 
-              return fetchComments();
+              } catch(err) {
+                toast("Something went wrong", { type: "error"})
+              }
             }}
           />
           {comments.map((comment, i) => {

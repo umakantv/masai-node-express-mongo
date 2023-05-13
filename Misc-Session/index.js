@@ -13,7 +13,7 @@ app.use(session({
     cookie: {
         secure: false, // that means client can't change this or delete this
         // supported only for https
-        maxAge: 30 * 60 * 60 * 1000 // 30 minutes
+        maxAge: 30 * 60 * 1000 // 30 minutes
     }
 }))
 app.use(morgan('tiny'))

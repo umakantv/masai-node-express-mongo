@@ -20,7 +20,6 @@ export async function login(email, password) {
         throw new Error('User with given email is not present.')
     }
 
-    // check password, TODO: we will store the encrypted
     if (!bcrypt.compareSync(password, user.password)) {
         throw new Error('Password is wrong.')
     }

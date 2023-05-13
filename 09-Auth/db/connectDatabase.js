@@ -1,4 +1,7 @@
 import { connect } from 'mongoose';
+import {config} from 'dotenv'
+
+config()
 
 export default async function connectDatabase() {
 

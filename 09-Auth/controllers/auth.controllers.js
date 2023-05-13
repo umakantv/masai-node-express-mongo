@@ -1,5 +1,6 @@
 import UserModel from "../db/User.model.js";
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import { getAccessToken, getUserProfile } from "../services/github.js";
 
 // We are not supposed to hard code this
@@ -20,7 +21,7 @@ export async function login(email, password) {
     }
 
     // check password, TODO: we will store the encrypted
-    if (user.password !== password) {
+    if (!bcrypt.compareSync(password, user.password)) {
         throw new Error('Password is wrong.')
     }
 
@@ -54,7 +55,8 @@ export async function register(name, email, password) {
     // if not, then add a new user with this email
 
     let user = await UserModel.create({
-        name, email, password
+        name, email, 
+        password: bcrypt.hashSync(password, 10),
     })
 
     // return user public info with id
